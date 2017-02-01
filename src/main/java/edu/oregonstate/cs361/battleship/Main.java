@@ -1,5 +1,6 @@
 package edu.oregonstate.cs361.battleship;
 
+import com.google.gson.Gson;
 import spark.Request;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -20,8 +21,12 @@ public class Main {
     }
 
     //This function should return a new model
-    private static String newModel() {
-        return null;
+    static String newModel() {
+        BattleshipModel model = new BattleshipModel();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(model);
+        return json;
     }
 
     //This function should accept an HTTP request and deseralize it into an actual Java object.
@@ -31,7 +36,7 @@ public class Main {
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
-        return null;
+        return "SHIP";
     }
 
     //Similar to placeShip, but with firing.
