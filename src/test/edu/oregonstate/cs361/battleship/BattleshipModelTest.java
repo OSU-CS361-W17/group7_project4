@@ -40,4 +40,24 @@ class BattleshipModelTest {
         BattleshipModel theModel = new BattleshipModel();
         assertFalse(theModel.updateShot("computer", new Coords(5,5)));
     }
+
+    @Test
+    public void compShotTest() {
+        BattleshipModel theModel = new BattleshipModel();
+        assertTrue(theModel.getComputerHits().size() == 0 && theModel.getComputerMisses().size() == 0);
+
+        theModel.updateShot("comp", new Coords(1, 1) );
+
+        assertTrue(theModel.getComputerHits().size() == 1 || theModel.getComputerMisses().size() == 1);
+    }
+
+    @Test
+    public void playerShotTest() {
+        BattleshipModel theModel = new BattleshipModel();
+        assertTrue(theModel.getPlayerHits().size() == 0 && theModel.getPlayerMisses().size() == 0);
+
+        theModel.updateShot("player", theModel.getComputerFireCoords());
+
+        assertTrue(theModel.getPlayerHits().size() == 1 || theModel.getPlayerMisses().size() == 1);
+    }
 }

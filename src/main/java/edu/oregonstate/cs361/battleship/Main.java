@@ -9,7 +9,6 @@ import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
 public class Main {
-    public static final int GRID_SIZE = 10;
 
     public static void main(String[] args) {
 
@@ -87,7 +86,7 @@ public class Main {
          * Put the AI decision making methods here for WHERE the AI will shoot
          * then take the Coords that the AI decides and set "targetCoords" equal to it.
          */
-         targetCoords = new Coords(1,1);
+         targetCoords = theModel.getComputerFireCoords();
 
         //This method is designated to be shooting AT the player ships. ("player" is the target)
         theModel.updateShot("player", targetCoords);
