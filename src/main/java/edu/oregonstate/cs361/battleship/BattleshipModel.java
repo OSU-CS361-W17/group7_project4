@@ -212,4 +212,48 @@ public class BattleshipModel {
 
         return new Coords(across, down);
     }
+
+    public void placeAIShip(String name){
+        String orient;
+        int dir;
+        boolean fail;
+        Random randNum = new Random();
+
+
+        do {
+            int x = (randNum.nextInt(GRID_SIZE) + 1);
+            int y = (randNum.nextInt(GRID_SIZE) + 1);
+
+            dir = (randNum.nextInt(1) + 0);
+
+            if (dir == 0) orient = "horizontal";
+            else if (dir == 1) orient = "vertical";
+            else orient = "well fuck";
+
+            //INCLUDE FUNCTION TO FIND OUT IF OVERLAP OR OUT OF BOUNDS
+            //if (not overlapping or outside of grid)
+            updateShipPosition(name, 2, 2, orient);
+            fail = false;
+            //else
+            // fail = true;
+        }while(fail == true);
+
+
+    }
+
+    public void placeAllAI(){
+        for (int i=0; i < 5; i++){
+
+            switch(i){
+                case 0: placeAIShip("computer_aircraftCarrier"); break;
+                case 1: placeAIShip("computer_destroyer"); break;
+                case 2: placeAIShip("computer_submarine"); break;
+                case 3: placeAIShip("computer_battleship"); break;
+                case 4: placeAIShip("computer_cruiser"); break;
+                default:
+                    //well shit
+            }
+
+        }
+    }
 }
