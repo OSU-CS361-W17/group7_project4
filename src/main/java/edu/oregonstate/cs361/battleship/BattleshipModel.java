@@ -59,15 +59,17 @@ public class BattleshipModel {
         computerMisses = new ArrayList<Coords>();
 
         //Initialize AI ships on coords
-        //uncomment this function after placement method implemented
-        //placeAllAI();
+        //randomize ai placement
+        placeAllAI();
 
-        updateShipPosition("computer_aircraftCarrier", 2, 2, "horizontal");
-        updateShipPosition("computer_battleship", 3, 8, "vertical");
-        updateShipPosition("computer_cruiser", 1, 6, "vertical");
-        updateShipPosition("computer_destroyer", 9, 9, "horizontal");
-        updateShipPosition("computer_submarine", 5, 5, "horizontal");
 
+        /* non random version
+        updateShipPosition("computer","computer_aircraftCarrier", 2, 2, "horizontal");
+        updateShipPosition("computer", "computer_battleship", 3, 8, "vertical");
+        updateShipPosition("computer", "computer_cruiser", 1, 6, "vertical");
+        updateShipPosition("computer", "computer_destroyer", 9, 9, "horizontal");
+        updateShipPosition("computer", "computer_submarine", 5, 5, "horizontal");
+        */
     }
 
     /*
@@ -227,10 +229,8 @@ public class BattleshipModel {
     public void placeAIShip(String name){
         String orient;
         int dir;
-        boolean fail;
+        boolean worked;
         Random randNum = new Random();
-
-
         do {
             int x = (randNum.nextInt(GRID_SIZE) + 1);
             int y = (randNum.nextInt(GRID_SIZE) + 1);
@@ -241,13 +241,9 @@ public class BattleshipModel {
             else if (dir == 1) orient = "vertical";
             else orient = "error orientation";
 
-            //INCLUDE FUNCTION TO FIND OUT IF OVERLAP OR OUT OF BOUNDS
-            //if (not overlapping or outside of grid)
-            updateShipPosition(name, 2, 2, orient);
-            fail = false;
-            //else
-            // fail = true;
-        }while(fail == true);
+            worked = updateShipPosition("computer",name, x, y, orient);
+
+        }while(worked == false);
 
 
     }
