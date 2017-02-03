@@ -69,6 +69,7 @@ class Ship {
     }
     
     public void updatePosition(int row, int column, String orientation) {
+        // Specified start position cannot be off-grid
         if (row <= 0 || row > GRID_SIZE || column <= 0 || column > GRID_SIZE)
             return;
 

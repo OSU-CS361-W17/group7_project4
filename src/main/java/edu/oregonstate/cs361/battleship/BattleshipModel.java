@@ -61,20 +61,20 @@ public class BattleshipModel {
      * @param coordinates the position to check for ships at
      * @return true if ship found at coordinates, false otherwise
      */
-    public boolean checkShipCollisions(String target, Coords coordinates) {
-        boolean shipFound = false;
+    public Ship checkShipCollisions(String target, Coords coordinates) {
+        Ship shipFound = null;
 
         if (target == "player") {
             for (Ship ship : playerShips) {
                 if(ship.checkCollision(coordinates)) {
-                    shipFound = true;
+                    shipFound = ship;
                     break;
                 }
             }
         } else if (target == "computer") {
             for (Ship ship : compShips) {
                 if(ship.checkCollision(coordinates)) {
-                    shipFound = true;
+                    shipFound = ship;
                     break;
                 }
             }
@@ -96,7 +96,7 @@ public class BattleshipModel {
         boolean collision = false;
 
         if (targetSide == "computer") {
-            if (checkShipCollisions(targetSide, targetArea)) {
+            if (checkShipCollisions(targetSide, targetArea) != null) {
                 computerHits.add(targetArea);
                 collision = true;
             } else
@@ -104,7 +104,7 @@ public class BattleshipModel {
 
         }
         else if (targetSide == "player")  {
-            if(checkShipCollisions(targetSide, targetArea)) {
+            if(checkShipCollisions(targetSide, targetArea) != null) {
                 playerHits.add(targetArea);
                 collision = true;
             } else
