@@ -60,7 +60,7 @@ public class BattleshipModel {
     public boolean checkCollision(String targetSide, Coords targetArea){
         boolean collision = false;
 
-        if (targetSide = "comp") {
+        if (targetSide == "comp") {
             for(int i = 0; i < compShips.length-1; i++){
                 Coords start = compShips[i].getStart();
                 Coords end = compShips[i].getEnd();
@@ -90,7 +90,7 @@ public class BattleshipModel {
                 else
                     playerMisses.add(targetArea);
         }
-        else if (targetSide = "player"){
+        else if (targetSide == "player"){
             for(int i = 0; i < playerShips.length-1; i++){
                 Coords start = playerShips[i].getStart();
                 Coords end = playerShips[i].getEnd();

@@ -54,7 +54,10 @@ public class Main {
 
         BattleshipModel theModel = getModelFromReq(req);
 
-        //Processing stuff here
+        //temporary string for marking target side
+        String stringTarget = "comp";
+
+        boolean isHit = theModel.checkCollision(stringTarget, targetCoords);
 
         return getJSONFromModel(theModel);
     }
