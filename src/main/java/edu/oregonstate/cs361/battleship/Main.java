@@ -81,7 +81,7 @@ public class Main {
             theModel = new BattleshipModel();
 
         //This method is designated to be shooting AT the computer ships. ("comp" is the target)
-        theModel.updateShot("comp", targetCoords);
+        theModel.updateShot("computer", targetCoords);
 
         /*
          * Put the AI decision making methods here for WHERE the AI will shoot
