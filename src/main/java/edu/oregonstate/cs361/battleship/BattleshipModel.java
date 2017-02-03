@@ -142,13 +142,28 @@ public class BattleshipModel {
     }
 
     /* Update the position of a ship specified by name
+     * @param whichShips specifies which team's ship is being placed, either "player" or "computer"
      * @param name the name of the ship to move
      * @param row the row number to move the ship to (down)
      * @param column the column number to move the ship to (across)
      * @orientation either "horizontal" or "vertical" indicating which direction the ship extends
      */
-    public void updateShipPosition(String name, int row, int column, String orientation) {
+    public void updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
+
+            for (int i = 0; i < ship.getLength() - 1; i++) {
+                if (orientation.equals("vertical")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
+                    if (collision != null && !collision.getName().equals(name))
+                        return;
+
+                } else if (orientation.equals("horizontal")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column + i, row));
+                    if (collision != null && !collision.getName().equals(name))
+                        return;
+                }
+            }
+
         ship.updatePosition(row, column, orientation);
 
         for (int i = 0; i < playerShips.length; i++) {
