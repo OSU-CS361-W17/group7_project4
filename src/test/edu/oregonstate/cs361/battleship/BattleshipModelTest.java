@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BattleshipModelTest {
 
     @Test
-    // I hate writing tests for the sake of line coverage, kill me
+    // Writing tests for the sake of line coverage :{
     void testGetShipFromID() {
         BattleshipModel model = new BattleshipModel();
 
@@ -21,5 +21,23 @@ class BattleshipModelTest {
         assertTrue(model.getShipFromID("computer_cruiser") != null);
         assertTrue(model.getShipFromID("computer_destroyer") != null);
         assertTrue(model.getShipFromID("computer_submarine") != null);
+        }
+        
+    @Test
+    public void testMiss() {
+        BattleshipModel theModel = new BattleshipModel();
+        assertFalse(theModel.updateShot("player", new Coords(5,5)));
+    }
+
+    @Test
+    public void testCompCollision() {
+        BattleshipModel theModel = new BattleshipModel();
+        assertTrue(theModel.updateShot("comp", new Coords(0,0)));
+    }
+
+    @Test
+    public void testCompMiss() {
+        BattleshipModel theModel = new BattleshipModel();
+        assertFalse(theModel.updateShot("comp", new Coords(5,5)));
     }
 }

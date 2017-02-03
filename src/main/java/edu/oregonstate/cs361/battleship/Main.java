@@ -58,8 +58,30 @@ public class Main {
         return getJSONFromModel(model);
     }
 
-    //Similar to placeShip, but with firing.
+    /*
+     * Similar to placeShip, but with firing.
+     * @param Request req
+     * @return String theModel
+     */
     private static String fireAt(Request req) {
-        return null;
+        int row = Integer.parseInt(req.params("row"));
+        int column = Integer.parseInt(req.params("col"));
+        Coords targetCoords = new Coords(row, column);
+
+        BattleshipModel theModel = getModelFromReq(req);
+
+        //This method is designated to be shooting AT the computer ships. ("comp" is the target)
+        boolean isHit = theModel.updateShot("comp", targetCoords);
+
+        /*
+         * Put the AI decision making methods here for WHERE the AI will shoot
+         * then take the Coords that the AI decides and set "targetCoords" equal to it.
+         */
+         targetCoords = new Coords(1,1);
+
+        //This method is designated to be shooting AT the player ships. ("player" is the target)
+        boolean isHitAI = theModel.updateShot("player", targetCoords);
+
+        return getJSONFromModel(theModel);
     }
 }

@@ -62,6 +62,13 @@ class MainTest {
 
     }
 
+    @Test
+    public void fireAt() {
+        TestResponse res = request("POST", "/fire/1/1");
+        assertEquals(200, res.status);
+        assertNotNull(res.body);
+    }
+
     private TestResponse request(String method, String path) {
         try {
             URL url = new URL("http://localhost:4567" + path);

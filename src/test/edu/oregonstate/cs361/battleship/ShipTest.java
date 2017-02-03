@@ -91,4 +91,20 @@ class ShipTest {
         assertEquals(0, end4.getAcross());
         assertEquals(0, end4.getDown());
     }
+
+    @Test
+    public void testVert() {
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(1,4));
+
+        //Vertical Ship should return true
+        assertTrue(ship.checkVert());
+    }
+
+    @Test
+    public void testNotVert() {
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(4,1));
+
+        //Horizontal Ship should return false
+        assertFalse(ship.checkVert());
+    }
 }
