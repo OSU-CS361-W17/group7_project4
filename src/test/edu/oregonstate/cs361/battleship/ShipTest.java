@@ -2,7 +2,7 @@ package edu.oregonstate.cs361.battleship;
 
 import org.junit.jupiter.api.Test;
 
-import static edu.oregonstate.cs361.battleship.Main.GRID_SIZE;
+import static edu.oregonstate.cs361.battleship.BattleshipModel.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {

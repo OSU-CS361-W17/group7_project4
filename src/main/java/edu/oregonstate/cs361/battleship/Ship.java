@@ -1,6 +1,6 @@
 package edu.oregonstate.cs361.battleship;
 
-import static edu.oregonstate.cs361.battleship.Main.GRID_SIZE;
+import static edu.oregonstate.cs361.battleship.BattleshipModel.GRID_SIZE;
 
 class Ship {
 

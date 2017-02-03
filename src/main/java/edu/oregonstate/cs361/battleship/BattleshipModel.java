@@ -1,8 +1,12 @@
 package edu.oregonstate.cs361.battleship;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BattleshipModel {
+
+    // Declares a Constant for size of the game grid.
+    public static final int GRID_SIZE = 10;
 
     // Player's ships
     private Ship[] playerShips = new Ship[5];
@@ -54,6 +58,27 @@ public class BattleshipModel {
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
     }
+
+    /*
+    Simple getters to return out player and computer
+    hits and misses.
+    */
+    public ArrayList<Coords> getPlayerHits() {
+        return playerHits;
+    }
+
+    public ArrayList<Coords> getPlayerMisses() {
+        return playerMisses;
+    }
+
+    public ArrayList<Coords> getComputerHits() {
+        return computerHits;
+    }
+
+    public ArrayList<Coords> getComputerMisses() {
+        return computerMisses;
+    }
+
 
     /*row, column
      * Method for checking collisions when firing. Takes details on whether player is
@@ -165,5 +190,19 @@ public class BattleshipModel {
             case "computer_submarine": ship = computer_submarine; break;
         }
         return ship;
+    }
+
+
+    /*
+    Generates a shot for the AI, and then
+    returns it as a Coords object.
+    @return Coords
+    */
+    public Coords getComputerFireCoords() {
+        Random randNum = new Random();
+        int across = (randNum.nextInt(GRID_SIZE) + 1);
+        int down = (randNum.nextInt(GRID_SIZE) + 1);
+
+        return new Coords(across, down);
     }
 }
