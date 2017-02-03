@@ -60,7 +60,7 @@ public class Main {
         int col = Integer.parseInt(req.params("col"));
         String orientation = req.params("orientation");
 
-        model.updateShipPosition(name, row, col, orientation);
+        model.updateShipPosition("player", name, row, col, orientation);
 
         return getJSONFromModel(model);
     }

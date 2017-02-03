@@ -142,13 +142,29 @@ public class BattleshipModel {
     }
 
     /* Update the position of a ship specified by name
+     * @param whichShips specifies which team's ship is being placed, either "player" or "computer"
      * @param name the name of the ship to move
      * @param row the row number to move the ship to (down)
      * @param column the column number to move the ship to (across)
-     * @orientation either "horizontal" or "vertical" indicating which direction the ship extends
+     * @param orientation either "horizontal" or "vertical" indicating which direction the ship extends
+     * @return true if ship placed successfully, false otherwise
      */
-    public void updateShipPosition(String name, int row, int column, String orientation) {
+    public boolean updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
+
+            for (int i = 0; i < ship.getLength() - 1; i++) {
+                if (orientation.equals("vertical")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
+                    if (collision != null && !collision.getName().equals(name))
+                        return false;
+
+                } else if (orientation.equals("horizontal")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column + i, row));
+                    if (collision != null && !collision.getName().equals(name))
+                        return false;
+                }
+            }
+
         ship.updatePosition(row, column, orientation);
 
         for (int i = 0; i < playerShips.length; i++) {
@@ -162,6 +178,7 @@ public class BattleshipModel {
                 compShips[i].updatePosition(row, column, orientation);
             }
         }
+        return true;
     }
 
     // Makes it possible to retrieve ships from strings of their name
