@@ -25,9 +25,12 @@ class Ship {
 
         this.start = start;
         this.end = end;
+
         if(start.getDown() != end.getDown())
             isVert = true;
     }
+
+    String getName() { return name; }
 
     int getLength() { return length; }
 
@@ -44,13 +47,13 @@ class Ship {
         Coords start = getStart();
         Coords end = getEnd();
 
-        if (orientation.equals("horizontal") && column + getLength() <= GRID_SIZE) {
-            end.setAcross(column + getLength());
+        if (orientation.equals("horizontal") && column + getLength() - 1 <= GRID_SIZE) {
+            end.setAcross(column + getLength() - 1);
             end.setDown(row);
         }
-        else if (orientation.equals("vertical") && row + getLength() <= GRID_SIZE) {
+        else if (orientation.equals("vertical") && row + getLength() - 1 <= GRID_SIZE) {
             end.setAcross(column);
-            end.setDown(row + getLength());
+            end.setDown(row + getLength() - 1);
         }
         else {
             return;

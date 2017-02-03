@@ -11,16 +11,16 @@ class BattleshipModelTest {
     void testGetShipFromID() {
         BattleshipModel model = new BattleshipModel();
 
-        assertTrue(model.getShipFromID("aircraftCarrier") != null);
-        assertTrue(model.getShipFromID("battleship") != null);
-        assertTrue(model.getShipFromID("cruiser") != null);
-        assertTrue(model.getShipFromID("destroyer") != null);
-        assertTrue(model.getShipFromID("submarine") != null);
-        assertTrue(model.getShipFromID("computer_aircraftCarrier") != null);
-        assertTrue(model.getShipFromID("computer_battleship") != null);
-        assertTrue(model.getShipFromID("computer_cruiser") != null);
-        assertTrue(model.getShipFromID("computer_destroyer") != null);
-        assertTrue(model.getShipFromID("computer_submarine") != null);
+        assertTrue(model.getShipFromName("aircraftCarrier") != null);
+        assertTrue(model.getShipFromName("battleship") != null);
+        assertTrue(model.getShipFromName("cruiser") != null);
+        assertTrue(model.getShipFromName("destroyer") != null);
+        assertTrue(model.getShipFromName("submarine") != null);
+        assertTrue(model.getShipFromName("computer_aircraftCarrier") != null);
+        assertTrue(model.getShipFromName("computer_battleship") != null);
+        assertTrue(model.getShipFromName("computer_cruiser") != null);
+        assertTrue(model.getShipFromName("computer_destroyer") != null);
+        assertTrue(model.getShipFromName("computer_submarine") != null);
         }
         
     @Test

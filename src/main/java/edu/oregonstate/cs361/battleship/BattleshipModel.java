@@ -27,22 +27,22 @@ public class BattleshipModel {
     private ArrayList<Coords> computerMisses;
 
     public BattleshipModel() {
-        aircraftCarrier = new Ship("AircraftCarrier", 5);
-        battleship = new Ship("Battleship", 4);
-        cruiser = new Ship("Cruiser", 3);
-        destroyer = new Ship("Destroyer", 2);
-        submarine = new Ship("Submarine", 2);
+        aircraftCarrier = new Ship("aircraftCarrier", 5);
+        battleship = new Ship("battleship", 4);
+        cruiser = new Ship("cruiser", 3);
+        destroyer = new Ship("destroyer", 2);
+        submarine = new Ship("submarine", 2);
         playerShips[0] = aircraftCarrier;
         playerShips[1] = battleship;
         playerShips[2] = cruiser;
         playerShips[3] = destroyer;
         playerShips[4] = submarine;
 
-        computer_aircraftCarrier = new Ship("Computer_AircraftCarrier", 5);
-        computer_battleship = new Ship("Computer_Battleship", 4);
-        computer_cruiser = new Ship("Computer_Cruiser", 3);
-        computer_destroyer = new Ship("Computer_Destroyer", 2);
-        computer_submarine = new Ship("Computer_Submarine", 2);
+        computer_aircraftCarrier = new Ship("computer_aircraftCarrier", 5);
+        computer_battleship = new Ship("computer_battleship", 4);
+        computer_cruiser = new Ship("computer_cruiser", 3);
+        computer_destroyer = new Ship("computer_destroyer", 2);
+        computer_submarine = new Ship("computer_submarine", 2);
         compShips[0] = computer_aircraftCarrier;
         compShips[1] = computer_battleship;
         compShips[2] = computer_cruiser;
@@ -55,7 +55,7 @@ public class BattleshipModel {
         computerMisses = new ArrayList<Coords>();
     }
 
-    /*
+    /*row, column
      * Method for checking collisions when firing. Takes details on whether player is
      * shooting at AI or vice versa, as well as a firing coordinate. If it's a hit,
      * it updates the array list for hits, or updates array list for misses if it's not.
@@ -68,14 +68,13 @@ public class BattleshipModel {
         boolean collision = false;
 
         if (targetSide == "comp") {
-            for(int i = 0; i < compShips.length-1; i++){
+            for(int i = 0; i < compShips.length; i++){
                 Coords start = compShips[i].getStart();
-                Coords end = compShips[i].getEnd();
                 boolean vert = compShips[i].checkVert();
 
                 if(vert){
                     for (int j = 0; j < compShips[i].getLength(); j++) {
-                        if(targetArea.getDown() == start.getDown()+j) {
+                        if(targetArea.getDown() == start.getDown()+j && targetArea.getAcross() == start.getAcross()) {
                             collision = true;
                             break;
                         }
@@ -83,7 +82,7 @@ public class BattleshipModel {
                 }
                 else {
                     for (int j = 0; j < compShips[i].getLength(); j++) {
-                        if (targetArea.getAcross() == start.getAcross() + j) {
+                        if (targetArea.getAcross() == start.getAcross() + j && targetArea.getDown() == start.getDown()) {
                             collision = true;
                             break;
                         }
@@ -93,19 +92,18 @@ public class BattleshipModel {
                     break;
             }
                 if(collision)
-                    playerHits.add(targetArea);
+                    computerHits.add(targetArea);
                 else
-                    playerMisses.add(targetArea);
+                    computerMisses.add(targetArea);
         }
         else if (targetSide == "player"){
-            for(int i = 0; i < playerShips.length-1; i++){
+            for(int i = 0; i < playerShips.length; i++){
                 Coords start = playerShips[i].getStart();
-                Coords end = playerShips[i].getEnd();
                 boolean vert = playerShips[i].checkVert();
 
                 if(vert){
                     for (int j = 0; j < playerShips[i].getLength(); j++) {
-                        if(targetArea.getDown() == start.getDown()+j) {
+                        if(targetArea.getDown() == start.getDown()+j && targetArea.getAcross() == start.getAcross()) {
                             collision = true;
                             break;
                         }
@@ -113,7 +111,7 @@ public class BattleshipModel {
                 }
                 else {
                     for (int j = 0; j < playerShips[i].getLength(); j++) {
-                        if (targetArea.getAcross() == start.getAcross() + j) {
+                        if (targetArea.getAcross() == start.getAcross() + j  && targetArea.getDown() == start.getDown()) {
                             collision = true;
                             break;
                         }
@@ -123,9 +121,9 @@ public class BattleshipModel {
                     break;
             }
             if(collision)
-                computerHits.add(targetArea);
+                playerHits.add(targetArea);
             else
-                computerMisses.add(targetArea);
+                playerMisses.add(targetArea);
         }
         else {
             System.err.println("Parameters not designated.");
@@ -133,10 +131,20 @@ public class BattleshipModel {
         return collision;
     }
 
+
+    public void updateShipPosition(String name, int row, int column, String orientation) {
+        Ship ship = getShipFromName(name);
+        ship.updatePosition(row, column, orientation);
+
+        for (int i = 0; i < playerShips.length; i++) {
+            if (name.equals(playerShips[i].getName())) {
+                playerShips[i].updatePosition(row, column, orientation);
+            }
+        }
+    }
+
     // Makes it possible to retrieve ships from strings of their name
-    // Checking for these fields using Reflection might be more elegant (if we want to change the ships in the game)...
-    // but that's a future consideration, and a PITA
-    public Ship getShipFromID(String shipID) {
+    Ship getShipFromName(String shipID) {
         Ship ship = null;
         switch (shipID) {
             case "aircraftCarrier": ship = aircraftCarrier; break;
