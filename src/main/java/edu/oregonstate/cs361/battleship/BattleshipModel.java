@@ -57,6 +57,13 @@ public class BattleshipModel {
         playerMisses = new ArrayList<Coords>();
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
+
+        //Initialize AI ships on coords
+        updateShipPosition("computer_aircraftCarrier", 2, 2, "horizontal");
+        updateShipPosition("computer_battleship", 3, 8, "vertical");
+        updateShipPosition("computer_cruiser", 1, 6, "vertical");
+        updateShipPosition("computer_destroyer", 9, 9, "horizontal");
+        updateShipPosition("computer_submarine", 5, 5, "horizontal");
     }
 
     /*
