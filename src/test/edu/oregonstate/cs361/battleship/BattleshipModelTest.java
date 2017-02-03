@@ -46,7 +46,7 @@ class BattleshipModelTest {
         BattleshipModel theModel = new BattleshipModel();
         assertTrue(theModel.getComputerHits().size() == 0 && theModel.getComputerMisses().size() == 0);
 
-        theModel.updateShot("comp", new Coords(1, 1) );
+        theModel.updateShot("computer", new Coords(1, 1) );
 
         assertTrue(theModel.getComputerHits().size() == 1 || theModel.getComputerMisses().size() == 1);
     }

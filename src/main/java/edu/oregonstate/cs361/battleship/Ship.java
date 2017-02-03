@@ -40,6 +40,13 @@ class Ship {
 
     boolean checkVert() { return isVert; }
 
+    void setVert(String orientation) {
+        if (orientation.equals("vertical"))
+            isVert = true;
+        else if (orientation.equals("horizontal"))
+            isVert = false;
+    }
+
     /* Checks if specified coordinates overlap with the ship
      * @param coordinates The specified location to check for overlap
      * @return true if there is overlap, false otherwise
@@ -90,5 +97,6 @@ class Ship {
 
         start.setDown(row);
         start.setAcross(column);
+        setVert(orientation);
     }
 }
