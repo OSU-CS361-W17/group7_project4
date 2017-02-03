@@ -7,7 +7,7 @@ body {
 .gameBoard{
 /*with:100px;
 height:100px;*/
-background-color: light-gray;
+background-color: lightgray;
 }
 
 .gameBoard td {
