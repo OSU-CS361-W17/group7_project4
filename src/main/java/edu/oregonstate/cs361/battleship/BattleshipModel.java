@@ -156,12 +156,12 @@ public class BattleshipModel {
                 if (orientation.equals("vertical")) {
                     Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
                     if (collision != null && !collision.getName().equals(name))
-                        return;
+                        return false;
 
                 } else if (orientation.equals("horizontal")) {
                     Ship collision = checkShipCollisions(whichShips, new Coords(column + i, row));
                     if (collision != null && !collision.getName().equals(name))
-                        return;
+                        return false;
                 }
             }
 
@@ -178,6 +178,7 @@ public class BattleshipModel {
                 compShips[i].updatePosition(row, column, orientation);
             }
         }
+        return true;
     }
 
     // Makes it possible to retrieve ships from strings of their name
