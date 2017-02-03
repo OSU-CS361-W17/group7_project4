@@ -4,14 +4,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BattleshipModelTest {
+class BattleshipModelTest {
 
     @Test
-    public void testCollision() {
-        BattleshipModel theModel = new BattleshipModel();
-        assertTrue(theModel.updateShot("player", new Coords(0,0)));
-    }
+    // Writing tests for the sake of line coverage :{
+    void testGetShipFromID() {
+        BattleshipModel model = new BattleshipModel();
 
+        assertTrue(model.getShipFromName("aircraftCarrier") != null);
+        assertTrue(model.getShipFromName("battleship") != null);
+        assertTrue(model.getShipFromName("cruiser") != null);
+        assertTrue(model.getShipFromName("destroyer") != null);
+        assertTrue(model.getShipFromName("submarine") != null);
+        assertTrue(model.getShipFromName("computer_aircraftCarrier") != null);
+        assertTrue(model.getShipFromName("computer_battleship") != null);
+        assertTrue(model.getShipFromName("computer_cruiser") != null);
+        assertTrue(model.getShipFromName("computer_destroyer") != null);
+        assertTrue(model.getShipFromName("computer_submarine") != null);
+        }
+        
     @Test
     public void testMiss() {
         BattleshipModel theModel = new BattleshipModel();

@@ -2,13 +2,22 @@ package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
 import spark.Request;
+import spark.Spark;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
 public class Main {
+    public static final int GRID_SIZE = 10;
 
     public static void main(String[] args) {
+
+        // Makes Spark log unhandled exceptions
+        Spark.exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+        });
+
         //This will allow us to server the static pages such as index.html, app.js, etc.
         staticFiles.location("/public");
 
@@ -17,7 +26,7 @@ public class Main {
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
         post("/fire/:row/:col", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
-        post("/placeShip/:id/:row/:col/:orientation", (req, res) -> placeShip(req));
+        post("/placeShip/:name/:row/:col/:orientation", (req, res) -> placeShip(req));
     }
 
     //This function should return a new model
@@ -33,7 +42,7 @@ public class Main {
         return json;
     }
 
-    //This function should accept an HTTP request and deseralize it into an actual Java object.
+    //This function should accept an HTTP request and deserialize it into an actual Java object.
     private static BattleshipModel getModelFromReq(Request req){
         Gson gson = new Gson();
         String json = req.body();
@@ -43,7 +52,18 @@ public class Main {
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
     private static String placeShip(Request req) {
-        return "SHIP";
+        BattleshipModel model = getModelFromReq(req);
+        if (model == null)
+            model = new BattleshipModel();
+
+        String name = req.params("name");
+        int row = Integer.parseInt(req.params("row"));
+        int col = Integer.parseInt(req.params("col"));
+        String orientation = req.params("orientation");
+
+        model.updateShipPosition(name, row, col, orientation);
+
+        return getJSONFromModel(model);
     }
 
     /*
@@ -57,19 +77,20 @@ public class Main {
         Coords targetCoords = new Coords(row, column);
 
         BattleshipModel theModel = getModelFromReq(req);
+        if (theModel == null)
+            theModel = new BattleshipModel();
 
         //This method is designated to be shooting AT the computer ships. ("comp" is the target)
-        boolean isHit = theModel.updateShot("comp", targetCoords);
+        theModel.updateShot("comp", targetCoords);
 
         /*
          * Put the AI decision making methods here for WHERE the AI will shoot
          * then take the Coords that the AI decides and set "targetCoords" equal to it.
          */
-
          targetCoords = new Coords(1,1);
 
         //This method is designated to be shooting AT the player ships. ("player" is the target)
-        boolean isHitAI = theModel.updateShot("player", targetCoords);
+        theModel.updateShot("player", targetCoords);
 
         return getJSONFromModel(theModel);
     }

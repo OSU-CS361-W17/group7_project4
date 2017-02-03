@@ -35,14 +35,29 @@ class MainTest {
         assertEquals(200, res.status);
         // Blank model with all ships defined at (0,0) and no hits or misses registered
         // Should be the same as the model specified in project's README.md so it's compatible with the view
-        assertEquals("{\"aircraftCarrier\":{\"name\":\"AircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"battleship\":{\"name\":\"Battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"cruiser\":{\"name\":\"Cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"destroyer\":{\"name\":\"Destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"submarine\":{\"name\":\"Submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"computer_aircraftCarrier\":{\"name\":\"Computer_AircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"computer_battleship\":{\"name\":\"Computer_Battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"computer_cruiser\":{\"name\":\"Computer_Cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"computer_destroyer\":{\"name\":\"Computer_Destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"computer_submarine\":{\"name\":\"Computer_Submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0}},\"playerHits\":[],\"playerMisses\":[],\"computerHits\":[],\"computerMisses\":[]}",res.body);
+        assertEquals("{\"playerShips\":[{\"name\":\"aircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false}],\"aircraftCarrier\":{\"name\":\"aircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"battleship\":{\"name\":\"battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"cruiser\":{\"name\":\"cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"destroyer\":{\"name\":\"destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"submarine\":{\"name\":\"submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"compShips\":[{\"name\":\"computer_aircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"computer_battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"computer_cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"computer_destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},{\"name\":\"computer_submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false}],\"computer_aircraftCarrier\":{\"name\":\"computer_aircraftCarrier\",\"length\":5,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"computer_battleship\":{\"name\":\"computer_battleship\",\"length\":4,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"computer_cruiser\":{\"name\":\"computer_cruiser\",\"length\":3,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"computer_destroyer\":{\"name\":\"computer_destroyer\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"computer_submarine\":{\"name\":\"computer_submarine\",\"length\":2,\"start\":{\"Across\":0,\"Down\":0},\"end\":{\"Across\":0,\"Down\":0},\"isVert\":false},\"playerHits\":[],\"playerMisses\":[],\"computerHits\":[],\"computerMisses\":[]}",res.body);
     }
 
     @Test
     public void testPlaceShip() {
-        TestResponse res = request("POST", "/placeShip/aircraftCarrier/1/1/horizontal");
+        TestResponse res = request("POST", "/placeShip/aircraftCarrier/2/4/horizontal");
         assertEquals(200, res.status);
-        assertEquals("SHIP",res.body);
+
+        Gson gson = new Gson();
+        String json = res.body;
+        BattleshipModel model = gson.fromJson(json, BattleshipModel.class);
+        Ship aircraftCarrier = model.getShipFromName("aircraftCarrier");
+
+        int startDown = aircraftCarrier.getStart().getDown();
+        int startAcross = aircraftCarrier.getStart().getAcross();
+        int endDown = aircraftCarrier.getEnd().getDown();
+        int endAcross = aircraftCarrier.getEnd().getAcross();
+        int length = aircraftCarrier.getLength();
+
+        assertEquals(2, startDown);
+        assertEquals(4, startAcross);
+        assertEquals(2, endDown);
+        assertEquals(4 + length - 1, endAcross);
     }
 
     @Test
