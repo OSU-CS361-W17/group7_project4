@@ -57,9 +57,7 @@ class MainTest {
         assertEquals(2, startDown);
         assertEquals(4, startAcross);
         assertEquals(2, endDown);
-        assertEquals(4 + length, endAcross);
-
-
+        assertEquals(4 + length - 1, endAcross);
     }
 
     @Test

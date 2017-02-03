@@ -35,7 +35,7 @@ class ShipTest {
 
         assertEquals(2, horizontalStart.getAcross());
         assertEquals(5, horizontalStart.getDown());
-        assertEquals(2+3, horizontalEnd.getAcross());
+        assertEquals(2+2, horizontalEnd.getAcross());
         assertEquals(5, horizontalEnd.getDown());
 
         Ship verticalShip = new Ship("Vertical Ship", 2);
@@ -46,7 +46,7 @@ class ShipTest {
         assertEquals(8, verticalStart.getAcross());
         assertEquals(7, verticalStart.getDown());
         assertEquals(8, verticalEnd.getAcross());
-        assertEquals(7+2, verticalEnd.getDown());
+        assertEquals(7+1, verticalEnd.getDown());
     }
 
     @Test

@@ -141,6 +141,12 @@ public class BattleshipModel {
                 playerShips[i].updatePosition(row, column, orientation);
             }
         }
+
+        for (int i = 0; i < compShips.length; i++) {
+            if (name.equals(compShips[i].getName())) {
+                compShips[i].updatePosition(row, column, orientation);
+            }
+        }
     }
 
     // Makes it possible to retrieve ships from strings of their name
