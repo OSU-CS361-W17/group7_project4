@@ -42,4 +42,24 @@ public class BattleshipModel {
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
     }
+
+    // Makes it possible to retrieve ships from strings of their name
+    // Checking for these fields using Reflection might be more elegant (if we want to change the ships in the game)...
+    // but that's a future consideration, and a PITA
+    public Ship getShipFromID(String shipID) {
+        Ship ship = null;
+        switch (shipID) {
+            case "aircraftCarrier": ship = aircraftCarrier; break;
+            case "battleship": ship = battleship; break;
+            case "cruiser": ship = cruiser; break;
+            case "destroyer": ship = destroyer; break;
+            case "submarine": ship = submarine; break;
+            case "computer_aircraftCarrier": ship = computer_aircraftCarrier; break;
+            case "computer_battleship": ship = computer_battleship; break;
+            case "computer_cruiser": ship = computer_cruiser; break;
+            case "computer_destroyer": ship = computer_destroyer; break;
+            case "computer_submarine": ship = computer_submarine; break;
+        }
+        return ship;
+    }
 }

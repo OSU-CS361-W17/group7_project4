@@ -40,9 +40,26 @@ class MainTest {
 
     @Test
     public void testPlaceShip() {
-        TestResponse res = request("POST", "/placeShip/aircraftCarrier/1/1/horizontal");
+        TestResponse res = request("POST", "/placeShip/aircraftCarrier/2/4/horizontal");
         assertEquals(200, res.status);
-        assertEquals("SHIP",res.body);
+
+        Gson gson = new Gson();
+        String json = res.body;
+        BattleshipModel model = gson.fromJson(json, BattleshipModel.class);
+        Ship aircraftCarrier = model.getShipFromID("aircraftCarrier");
+
+        int startDown = aircraftCarrier.getStart().getDown();
+        int startAcross = aircraftCarrier.getStart().getAcross();
+        int endDown = aircraftCarrier.getEnd().getDown();
+        int endAcross = aircraftCarrier.getEnd().getAcross();
+        int length = aircraftCarrier.getLength();
+
+        assertEquals(2, startDown);
+        assertEquals(4, startAcross);
+        assertEquals(2, endDown);
+        assertEquals(4 + length, endAcross);
+
+
     }
 
     private TestResponse request(String method, String path) {
