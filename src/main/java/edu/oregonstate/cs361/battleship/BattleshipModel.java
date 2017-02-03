@@ -146,9 +146,10 @@ public class BattleshipModel {
      * @param name the name of the ship to move
      * @param row the row number to move the ship to (down)
      * @param column the column number to move the ship to (across)
-     * @orientation either "horizontal" or "vertical" indicating which direction the ship extends
+     * @param orientation either "horizontal" or "vertical" indicating which direction the ship extends
+     * @return true if ship placed successfully, false otherwise
      */
-    public void updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
+    public boolean updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
 
             for (int i = 0; i < ship.getLength() - 1; i++) {
