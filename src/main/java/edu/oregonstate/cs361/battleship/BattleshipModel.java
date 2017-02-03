@@ -1,7 +1,5 @@
 package edu.oregonstate.cs361.battleship;
 
-import com.sun.javafx.image.BytePixelSetter;
-
 import java.util.ArrayList;
 
 public class BattleshipModel {

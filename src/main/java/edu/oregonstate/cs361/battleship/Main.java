@@ -66,7 +66,7 @@ public class Main {
          * then take the Coords that the AI decides and set "targetCoords" equal to it.
          */
 
-        // targetCoords = _______________;
+         targetCoords = new Coords(1,1);
 
         //This method is designated to be shooting AT the player ships. ("player" is the target)
         boolean isHitAI = theModel.updateShot("player", targetCoords);
