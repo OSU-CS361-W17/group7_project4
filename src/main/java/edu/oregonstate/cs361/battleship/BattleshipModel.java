@@ -30,6 +30,9 @@ public class BattleshipModel {
     private ArrayList<Coords> computerHits;
     private ArrayList<Coords> computerMisses;
 
+    // Tracks AI's remaining fireable Coords
+    private ArrayList<Coords> computerRemainingFirableCoords;
+
     public BattleshipModel() {
         aircraftCarrier = new Ship("aircraftCarrier", 5);
         battleship = new Ship("battleship", 4);
@@ -57,6 +60,25 @@ public class BattleshipModel {
         playerMisses = new ArrayList<Coords>();
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
+
+        //Calls for clean new AI fireable array.
+        setCleanComputerShotArray();
+    }
+
+    /*
+    Is used to create a new, clean shot array for the
+    AI to reference on making shot decisions.
+     */
+    public void setCleanComputerShotArray() {
+
+        //Sets the shot array's size based on GRID_SIZE.
+        computerRemainingFirableCoords = new ArrayList<Coords>(GRID_SIZE * GRID_SIZE);
+
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++){
+                computerRemainingFirableCoords.add(new Coords(i+1,j+1));
+            }
+        }
     }
 
     /*
@@ -200,9 +222,12 @@ public class BattleshipModel {
     */
     public Coords getComputerFireCoords() {
         Random randNum = new Random();
-        int across = (randNum.nextInt(GRID_SIZE) + 1);
-        int down = (randNum.nextInt(GRID_SIZE) + 1);
+        int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
 
-        return new Coords(across, down);
+        Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
+        computerRemainingFirableCoords.remove(shotArrayNum);
+        System.out.println(shot.getAcross() + ", " + shot.getDown());
+        return shot;
     }
+
 }
