@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class BattleshipModel {
 
     // Player's ships
-    private Ship[] playerShips = new Ship[4];
+    private Ship[] playerShips = new Ship[5];
     private Ship aircraftCarrier;
     private Ship battleship;
     private Ship cruiser;
@@ -15,7 +15,7 @@ public class BattleshipModel {
     private Ship submarine;
 
     // AI's ships
-    private Ship[] compShips = new Ship[4];
+    private Ship[] compShips = new Ship[5];
     private Ship computer_aircraftCarrier;
     private Ship computer_battleship;
     private Ship computer_cruiser;
@@ -57,7 +57,16 @@ public class BattleshipModel {
         computerMisses = new ArrayList<Coords>();
     }
 
-    public boolean checkCollision(String targetSide, Coords targetArea){
+    /*
+     * Method for checking collisions when firing. Takes details on whether player is
+     * shooting at AI or vice versa, as well as a firing coordinate. If it's a hit,
+     * it updates the array list for hits, or updates array list for misses if it's not.
+     * Also returns a boolean, true for hit, to it's call.
+     * @param String targetSide
+     * @param Coords targetArea
+     * @return boolean collision
+     */
+    public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
 
         if (targetSide == "comp") {
@@ -121,7 +130,7 @@ public class BattleshipModel {
                 computerMisses.add(targetArea);
         }
         else {
-            System.err.println("Target side not designated.");
+            System.err.println("Parameters not designated.");
         }
         return collision;
     }

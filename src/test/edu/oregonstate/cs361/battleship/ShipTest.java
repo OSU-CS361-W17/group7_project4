@@ -24,4 +24,20 @@ class ShipTest {
         // Negative length values should replaced with a positive value
         assertTrue(ship.getLength() >= 1);
     }
+
+    @Test
+    public void testVert() {
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(1,4));
+
+        //Vertical Ship should return true
+        assertTrue(ship.checkVert());
+    }
+
+    @Test
+    public void testNotVert() {
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(4,1));
+
+        //Horizontal Ship should return false
+        assertFalse(ship.checkVert());
+    }
 }
