@@ -59,11 +59,15 @@ public class BattleshipModel {
         computerMisses = new ArrayList<Coords>();
 
         //Initialize AI ships on coords
+        //uncomment this function after placement method implemented
+        //placeAllAI();
+
         updateShipPosition("computer_aircraftCarrier", 2, 2, "horizontal");
         updateShipPosition("computer_battleship", 3, 8, "vertical");
         updateShipPosition("computer_cruiser", 1, 6, "vertical");
         updateShipPosition("computer_destroyer", 9, 9, "horizontal");
         updateShipPosition("computer_submarine", 5, 5, "horizontal");
+
     }
 
     /*
@@ -224,11 +228,11 @@ public class BattleshipModel {
             int x = (randNum.nextInt(GRID_SIZE) + 1);
             int y = (randNum.nextInt(GRID_SIZE) + 1);
 
-            dir = (randNum.nextInt(1) + 0);
+            dir = (randNum.nextInt(1));
 
             if (dir == 0) orient = "horizontal";
             else if (dir == 1) orient = "vertical";
-            else orient = "well fuck";
+            else orient = "error orientation";
 
             //INCLUDE FUNCTION TO FIND OUT IF OVERLAP OR OUT OF BOUNDS
             //if (not overlapping or outside of grid)
@@ -242,18 +246,14 @@ public class BattleshipModel {
     }
 
     public void placeAllAI(){
-        for (int i=0; i < 5; i++){
 
-            switch(i){
-                case 0: placeAIShip("computer_aircraftCarrier"); break;
-                case 1: placeAIShip("computer_destroyer"); break;
-                case 2: placeAIShip("computer_submarine"); break;
-                case 3: placeAIShip("computer_battleship"); break;
-                case 4: placeAIShip("computer_cruiser"); break;
-                default:
-                    //well shit
-            }
+                placeAIShip("computer_aircraftCarrier");
+                placeAIShip("computer_destroyer");
+                placeAIShip("computer_submarine");
+                placeAIShip("computer_battleship");
+                placeAIShip("computer_cruiser");
 
-        }
+
     }
+
 }
