@@ -23,7 +23,11 @@ public class Main {
     //This function should return a new model
     static String newModel() {
         BattleshipModel model = new BattleshipModel();
+        return getJSONFromModel(model);
+    }
 
+    //Convert a BattleshipModel to a JSON string
+    private static String getJSONFromModel(BattleshipModel model) {
         Gson gson = new Gson();
         String json = gson.toJson(model);
         return json;
@@ -31,7 +35,10 @@ public class Main {
 
     //This function should accept an HTTP request and deseralize it into an actual Java object.
     private static BattleshipModel getModelFromReq(Request req){
-        return null;
+        Gson gson = new Gson();
+        String json = req.body();
+        BattleshipModel model = gson.fromJson(json, BattleshipModel.class);
+        return model;
     }
 
     //This controller should take a json object from the front end, and place the ship as requested, and then return the object.
@@ -41,7 +48,15 @@ public class Main {
 
     //Similar to placeShip, but with firing.
     private static String fireAt(Request req) {
-        return null;
+        int row = Integer.parseInt(req.params("row"));
+        int column = Integer.parseInt(req.params("col"));
+        Coords targetCoords = new Coords(row, column);
+
+        BattleshipModel theModel = getModelFromReq(req);
+
+        //Processing stuff here
+
+        return getJSONFromModel(theModel);
     }
 
 }

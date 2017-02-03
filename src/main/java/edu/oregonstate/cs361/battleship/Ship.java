@@ -6,6 +6,7 @@ class Ship {
     private int length;
     private Coords start;
     private Coords end;
+    private boolean isVert = false;
 
     Ship(String name, int length) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
@@ -22,6 +23,8 @@ class Ship {
 
         this.start = start;
         this.end = end;
+        if(start.getDown() != end.getDown())
+            isVert = true;
     }
 
     int getLength() { return length; }
@@ -29,4 +32,6 @@ class Ship {
     Coords getStart() { return start; }
 
     Coords getEnd() { return end; }
+
+    boolean checkVert() { return isVert; }
 }
