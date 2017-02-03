@@ -39,8 +39,44 @@ class Ship {
     Coords getEnd() { return end; }
 
     boolean checkVert() { return isVert; }
+
+    void setVert(String orientation) {
+        if (orientation.equals("vertical"))
+            isVert = true;
+        else if (orientation.equals("horizontal"))
+            isVert = false;
+    }
+
+    /* Checks if specified coordinates overlap with the ship
+     * @param coordinates The specified location to check for overlap
+     * @return true if there is overlap, false otherwise
+     */
+    public boolean checkCollision(Coords coordinates) {
+        boolean collision = false;
+        Coords start = getStart();
+
+        if(checkVert()){
+            for (int j = 0; j < getLength(); j++) {
+                if(coordinates.getDown() == start.getDown()+j && coordinates.getAcross() == start.getAcross()) {
+                    collision = true;
+                    break;
+                }
+            }
+        }
+        else {
+            for (int j = 0; j < getLength(); j++) {
+                if (coordinates.getAcross() == start.getAcross() + j  && coordinates.getDown() == start.getDown()) {
+                    collision = true;
+                    break;
+                }
+            }
+        }
+
+        return collision;
+    }
     
     public void updatePosition(int row, int column, String orientation) {
+        // Specified start position cannot be off-grid
         if (row <= 0 || row > GRID_SIZE || column <= 0 || column > GRID_SIZE)
             return;
 
@@ -61,5 +97,6 @@ class Ship {
 
         start.setDown(row);
         start.setAcross(column);
+        setVert(orientation);
     }
 }
