@@ -57,17 +57,18 @@ class BattleshipModelTest {
     }
 
     @Test
-    public void aiPlaceTest(){
+    public void aiPlaceTest() {
+
         BattleshipModel theModel = new BattleshipModel();
-        Ship aircraftCarrier = theModel.getShipFromName("aircraftCarrier");
+        Ship aircraftCarrier = theModel.getShipFromName("computer_aircraftCarrier");
         assertFalse(aircraftCarrier.getStart().getAcross() == 0);
-        Ship destroyer = theModel.getShipFromName("destroyer");
+        Ship destroyer = theModel.getShipFromName("computer_destroyer");
         assertFalse(destroyer.getStart().getAcross() == 0);
-        Ship cruiser = theModel.getShipFromName("cruiser");
+        Ship cruiser = theModel.getShipFromName("computer_cruiser");
         assertFalse(cruiser.getStart().getAcross() == 0);
-        Ship battleship = theModel.getShipFromName("battleship");
+        Ship battleship = theModel.getShipFromName("computer_battleship");
         assertFalse(battleship.getStart().getAcross() == 0);
-        Ship submarine = theModel.getShipFromName("submarine");
+        Ship submarine = theModel.getShipFromName("computer_submarine");
         assertFalse(submarine.getStart().getAcross() == 0);
     }
     
@@ -76,6 +77,6 @@ class BattleshipModelTest {
         BattleshipModel theModel = new BattleshipModel();
 
         assertFalse(theModel.updateShot("player", null));
-        assertFalse(theModel.updateShot("comp", null));
+        assertFalse(theModel.updateShot("computer", null));
     }
 }

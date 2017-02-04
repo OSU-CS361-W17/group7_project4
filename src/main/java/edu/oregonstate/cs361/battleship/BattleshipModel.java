@@ -195,7 +195,7 @@ public class BattleshipModel {
     public boolean updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
 
-            for (int i = 0; i < ship.getLength() - 1; i++) {
+            for (int i = 0; i < ship.getLength(); i++) {
                 if (orientation.equals("vertical")) {
                     Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
                     if (collision != null && !collision.getName().equals(name))
@@ -208,20 +208,21 @@ public class BattleshipModel {
                 }
             }
 
-        ship.updatePosition(row, column, orientation);
-
-        for (int i = 0; i < playerShips.length; i++) {
-            if (name.equals(playerShips[i].getName())) {
-                return playerShips[i].updatePosition(row, column, orientation);
+        if (ship.updatePosition(row, column, orientation)) {
+            for (int i = 0; i < playerShips.length; i++) {
+                if (name.equals(playerShips[i].getName())) {
+                    playerShips[i] = ship;
+                }
             }
-        }
 
-        for (int i = 0; i < compShips.length; i++) {
-            if (name.equals(compShips[i].getName())) {
-                return compShips[i].updatePosition(row, column, orientation);
+            for (int i = 0; i < compShips.length; i++) {
+                if (name.equals(compShips[i].getName())) {
+                    compShips[i] = ship;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Makes it possible to retrieve ships from strings of their name
@@ -256,7 +257,6 @@ public class BattleshipModel {
             int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
             Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
             computerRemainingFirableCoords.remove(shotArrayNum);
-            System.out.println(shot.getAcross() + ", " + shot.getDown());
             return shot;
         }
         else {
