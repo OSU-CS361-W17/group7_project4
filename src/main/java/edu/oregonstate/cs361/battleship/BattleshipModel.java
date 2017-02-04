@@ -195,7 +195,7 @@ public class BattleshipModel {
     public boolean updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
 
-            for (int i = 0; i < ship.getLength() - 1; i++) {
+            for (int i = 0; i < ship.getLength(); i++) {
                 if (orientation.equals("vertical")) {
                     Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
                     if (collision != null && !collision.getName().equals(name))
