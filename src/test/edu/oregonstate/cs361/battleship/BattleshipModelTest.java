@@ -55,4 +55,27 @@ class BattleshipModelTest {
         assertEquals("Parameters not designated.", errorTest.toString());
         //End Stack-Overflow code
     }
+
+    @Test
+    public void aiPlaceTest(){
+        BattleshipModel theModel = new BattleshipModel();
+        Ship aircraftCarrier = theModel.getShipFromName("aircraftCarrier");
+        assertFalse(aircraftCarrier.getStart().getAcross() == 0);
+        Ship destroyer = theModel.getShipFromName("destroyer");
+        assertFalse(destroyer.getStart().getAcross() == 0);
+        Ship cruiser = theModel.getShipFromName("cruiser");
+        assertFalse(cruiser.getStart().getAcross() == 0);
+        Ship battleship = theModel.getShipFromName("battleship");
+        assertFalse(battleship.getStart().getAcross() == 0);
+        Ship submarine = theModel.getShipFromName("submarine");
+        assertFalse(submarine.getStart().getAcross() == 0);
+    }
+    
+    @Test
+    public void nullCoordsShotCheck() {
+        BattleshipModel theModel = new BattleshipModel();
+
+        assertFalse(theModel.updateShot("player", null));
+        assertFalse(theModel.updateShot("comp", null));
+    }
 }

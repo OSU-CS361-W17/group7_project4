@@ -30,6 +30,10 @@ public class BattleshipModel {
     private ArrayList<Coords> computerHits;
     private ArrayList<Coords> computerMisses;
 
+    // Tracks AI's remaining fireable Coords
+    private ArrayList<Coords> computerRemainingFirableCoords;
+
+
     public BattleshipModel() {
         this(false);
     }
@@ -61,7 +65,10 @@ public class BattleshipModel {
         playerMisses = new ArrayList<Coords>();
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
-
+      
+        //Calls for clean new AI fireable array.
+        setCleanComputerShotArray()
+          
         if(test) {
             updateShipPosition("computer", "computer_aircraftCarrier", 1, 1, "horizontal");
             updateShipPosition("computer", "computer_battleship", 2, 1, "horizontal");
@@ -73,6 +80,22 @@ public class BattleshipModel {
             //Initialize AI ships on coords
             //randomize ai placement
             placeAllAI();
+        }
+    }
+
+    /*
+    Is used to create a new, clean shot array for the
+    AI to reference on making shot decisions.
+     */
+    public void setCleanComputerShotArray() {
+
+        //Sets the shot array's size based on GRID_SIZE.
+        computerRemainingFirableCoords = new ArrayList<Coords>(GRID_SIZE * GRID_SIZE);
+
+        for (int i = 0; i < GRID_SIZE; i++) {
+            for (int j = 0; j < GRID_SIZE; j++){
+                computerRemainingFirableCoords.add(new Coords(i+1,j+1));
+            }
         }
     }
 
@@ -135,6 +158,9 @@ public class BattleshipModel {
      */
     public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
+
+        if (targetArea == null)
+            return false;
 
         if (targetSide == "computer") {
             if (checkShipCollisions(targetSide, targetArea) != null) {
@@ -223,11 +249,19 @@ public class BattleshipModel {
     @return Coords
     */
     public Coords getComputerFireCoords() {
-        Random randNum = new Random();
-        int across = (randNum.nextInt(GRID_SIZE) + 1);
-        int down = (randNum.nextInt(GRID_SIZE) + 1);
 
-        return new Coords(across, down);
+        // New Random object to generate random shots
+        Random randNum = new Random();
+        if (computerRemainingFirableCoords.size() != 0) {
+            int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
+            Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
+            computerRemainingFirableCoords.remove(shotArrayNum);
+            System.out.println(shot.getAcross() + ", " + shot.getDown());
+            return shot;
+        }
+        else {
+            return null;
+        }
     }
 
     public void placeAIShip(String name){
@@ -248,19 +282,13 @@ public class BattleshipModel {
             worked = updateShipPosition("computer",name, x, y, orient);
 
         }while(worked == false);
-
-
     }
 
     public void placeAllAI(){
-
                 placeAIShip("computer_aircraftCarrier");
                 placeAIShip("computer_destroyer");
                 placeAIShip("computer_submarine");
                 placeAIShip("computer_battleship");
                 placeAIShip("computer_cruiser");
-
-
     }
-
 }
