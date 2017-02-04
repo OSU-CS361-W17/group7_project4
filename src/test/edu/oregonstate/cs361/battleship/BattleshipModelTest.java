@@ -60,4 +60,13 @@ class BattleshipModelTest {
 
         assertTrue(theModel.getPlayerHits().size() == 1 || theModel.getPlayerMisses().size() == 1);
     }
+
+    @Test
+    public void nullCoordsShotCheck() {
+        BattleshipModel theModel = new BattleshipModel();
+
+        assertFalse(theModel.updateShot("player", null));
+        assertFalse(theModel.updateShot("comp", null));
+
+    }
 }
