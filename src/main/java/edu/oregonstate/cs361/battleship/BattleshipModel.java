@@ -62,6 +62,19 @@ public class BattleshipModel {
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
 
+        //Initialize AI ships on coords
+        //randomize ai placement
+        placeAllAI();
+
+
+        /* non random ship placement - Uncomment to text stat
+        updateShipPosition("computer","computer_aircraftCarrier", 2, 2, "horizontal");
+        updateShipPosition("computer", "computer_battleship", 3, 8, "vertical");
+        updateShipPosition("computer", "computer_cruiser", 1, 6, "vertical");
+        updateShipPosition("computer", "computer_destroyer", 9, 9, "horizontal");
+        updateShipPosition("computer", "computer_submarine", 5, 5, "horizontal");
+        */
+
         //Calls for clean new AI fireable array.
         setCleanComputerShotArray();
     }
@@ -208,9 +221,9 @@ public class BattleshipModel {
     }
 
     // Makes it possible to retrieve ships from strings of their name
-    Ship getShipFromName(String shipID) {
+    public Ship getShipFromName(String name) {
         Ship ship = null;
-        switch (shipID) {
+        switch (name) {
             case "aircraftCarrier": ship = aircraftCarrier; break;
             case "battleship": ship = battleship; break;
             case "cruiser": ship = cruiser; break;
@@ -235,9 +248,6 @@ public class BattleshipModel {
 
         // New Random object to generate random shots
         Random randNum = new Random();
-        int across = (randNum.nextInt(GRID_SIZE) + 1);
-        int down = (randNum.nextInt(GRID_SIZE) + 1);
-
         if (computerRemainingFirableCoords.size() != 0) {
             int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
             Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
@@ -248,5 +258,33 @@ public class BattleshipModel {
         else {
             return null;
         }
+    }
+
+    public void placeAIShip(String name){
+        String orient;
+        int dir;
+        boolean worked;
+        Random randNum = new Random();
+        do {
+            int x = (randNum.nextInt(GRID_SIZE) + 1);
+            int y = (randNum.nextInt(GRID_SIZE) + 1);
+
+            dir = (randNum.nextInt(2));
+
+            if (dir == 0) orient = "horizontal";
+            else if (dir == 1) orient = "vertical";
+            else orient = "error orientation";
+
+            worked = updateShipPosition("computer",name, x, y, orient);
+
+        }while(worked == false);
+    }
+
+    public void placeAllAI(){
+                placeAIShip("computer_aircraftCarrier");
+                placeAIShip("computer_destroyer");
+                placeAIShip("computer_submarine");
+                placeAIShip("computer_battleship");
+                placeAIShip("computer_cruiser");
     }
 }
