@@ -235,7 +235,7 @@ public class BattleshipModel {
             int x = (randNum.nextInt(GRID_SIZE) + 1);
             int y = (randNum.nextInt(GRID_SIZE) + 1);
 
-            dir = (randNum.nextInt(1));
+            dir = (randNum.nextInt(2));
 
             if (dir == 0) orient = "horizontal";
             else if (dir == 1) orient = "vertical";
