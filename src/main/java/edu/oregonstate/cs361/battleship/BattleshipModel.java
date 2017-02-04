@@ -208,22 +208,21 @@ public class BattleshipModel {
                 }
             }
 
-        ship.updatePosition(row, column, orientation);
-
-        for (int i = 0; i < playerShips.length; i++) {
-            if (name.equals(playerShips[i].getName())) {
-                if (!playerShips[i].updatePosition(row, column, orientation))
-                    return false;
+        if (ship.updatePosition(row, column, orientation)) {
+            for (int i = 0; i < playerShips.length; i++) {
+                if (name.equals(playerShips[i].getName())) {
+                    playerShips[i] = ship;
+                }
             }
-        }
 
-        for (int i = 0; i < compShips.length; i++) {
-            if (name.equals(compShips[i].getName())) {
-                if(!compShips[i].updatePosition(row, column, orientation))
-                    return false;
+            for (int i = 0; i < compShips.length; i++) {
+                if (name.equals(compShips[i].getName())) {
+                    compShips[i] = ship;
+                }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Makes it possible to retrieve ships from strings of their name
@@ -258,7 +257,6 @@ public class BattleshipModel {
             int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
             Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
             computerRemainingFirableCoords.remove(shotArrayNum);
-            System.out.println(shot.getAcross() + ", " + shot.getDown());
             return shot;
         }
         else {
