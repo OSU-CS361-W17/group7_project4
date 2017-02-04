@@ -97,7 +97,8 @@ class BattleshipModelTest {
         assertFalse(battleship.getStart().getAcross() == 0);
         Ship submarine = theModel.getShipFromName("submarine");
         assertFalse(submarine.getStart().getAcross() == 0);
-
+    }
+    
     @Test
     public void nullCoordsShotCheck() {
         BattleshipModel theModel = new BattleshipModel();
