@@ -8,7 +8,6 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BattleshipModelTest {
-
     @Test
     // Writing tests for the sake of line coverage :(
     void testGetShipFromName() {
@@ -25,51 +24,24 @@ class BattleshipModelTest {
         assertTrue(model.getShipFromName("computer_destroyer") != null);
         assertTrue(model.getShipFromName("computer_submarine") != null);
         }
-        
-    @Test
-    public void testMiss() {
-        BattleshipModel theModel = new BattleshipModel();
-        assertFalse(theModel.updateShot("player", new Coords(5,5)));
-    }
 
     @Test
-    public void testCompCollision() {
-        BattleshipModel theModel = new BattleshipModel();
-        assertTrue(theModel.updateShot("computer", new Coords(0,0)));
-    }
-
-    @Test
-    public void testCompMiss() {
-        BattleshipModel theModel = new BattleshipModel();
-        assertFalse(theModel.updateShot("computer", new Coords(5,5)));
-    }
-
-    @Test
-    public void compShotTest() {
-        BattleshipModel theModel = new BattleshipModel();
-        assertTrue(theModel.getComputerHits().size() == 0 && theModel.getComputerMisses().size() == 0);
-
-        theModel.updateShot("computer", new Coords(1, 1) );
-
-        assertTrue(theModel.getComputerHits().size() == 1 || theModel.getComputerMisses().size() == 1);
-    }
-
-    @Test
-    public void playerShotTest() {
-        BattleshipModel theModel = new BattleshipModel();
+    public void shootingTest() {
+        //Create a model with non-random ships
+        BattleshipModel theModel = new BattleshipModel(true);
         assertTrue(theModel.getPlayerHits().size() == 0 && theModel.getPlayerMisses().size() == 0);
 
         theModel.updateShot("player", theModel.getComputerFireCoords());
         assertTrue(theModel.getPlayerHits().size() == 1 || theModel.getPlayerMisses().size() == 1);
 
-        assertTrue(theModel.updateShot("computer",new Coords(0,0)));
-        assertFalse(theModel.updateShot("computer",new Coords(1,1)));
+        assertTrue(theModel.updateShot("computer",new Coords(1,1)));
+        assertFalse(theModel.updateShot("computer",new Coords(11,11)));
 
-        theModel.updateShipPosition("computer","computer_aircraftCarrier",2,1,"vertical");
-        assertTrue(theModel.updateShot("computer", new Coords(1,2)));
+        assertTrue(theModel.updateShot("computer", new Coords(1,5)));
 
-        assertTrue(theModel.updateShot("player",new Coords(0,0)));
-        assertFalse(theModel.updateShot("player",new Coords(1,1)));
+        theModel.updateShipPosition("player","aircraftCarrier",1,1,"horizontal");
+        assertTrue(theModel.updateShot("player",new Coords(1,1)));
+        assertFalse(theModel.updateShot("player",new Coords(11,11)));
 
         theModel.updateShipPosition("player","aircraftCarrier",3,1,"vertical");
         assertTrue(theModel.updateShot("player",new Coords(1,3)));

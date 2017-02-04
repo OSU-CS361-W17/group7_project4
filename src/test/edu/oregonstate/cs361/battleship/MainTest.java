@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static spark.Spark.awaitInitialization;
 
 class MainTest {
-
     @BeforeAll
     public static void beforeClass() {
         Main.main(null);
