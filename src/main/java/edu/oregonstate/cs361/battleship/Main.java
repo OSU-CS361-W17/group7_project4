@@ -60,7 +60,7 @@ public class Main {
         int col = Integer.parseInt(req.params("col"));
         String orientation = req.params("orientation");
 
-        model.updateShipPosition(name, row, col, orientation);
+        model.updateShipPosition("player", name, row, col, orientation);
 
         return getJSONFromModel(model);
     }
@@ -80,7 +80,7 @@ public class Main {
             theModel = new BattleshipModel();
 
         //This method is designated to be shooting AT the computer ships. ("comp" is the target)
-        theModel.updateShot("comp", targetCoords);
+        theModel.updateShot("computer", targetCoords);
 
         /*
          * Put the AI decision making methods here for WHERE the AI will shoot

@@ -101,9 +101,36 @@ public class BattleshipModel {
     public ArrayList<Coords> getComputerMisses() {
         return computerMisses;
     }
+    
+    /*
+     * Check if any of a target player or computer's ships overlap with given coordinates
+     * @param target specifies who's ships to check for, either "player" or "computer"
+     * @param coordinates the position to check for ships at
+     * @return true if ship found at coordinates, false otherwise
+     */
+    public Ship checkShipCollisions(String target, Coords coordinates) {
+        Ship shipFound = null;
 
+        if (target == "player") {
+            for (Ship ship : playerShips) {
+                if(ship.checkCollision(coordinates)) {
+                    shipFound = ship;
+                    break;
+                }
+            }
+        } else if (target == "computer") {
+            for (Ship ship : compShips) {
+                if(ship.checkCollision(coordinates)) {
+                    shipFound = ship;
+                    break;
+                }
+            }
+        }
 
-    /*row, column
+        return shipFound;
+    }
+
+    /*
      * Method for checking collisions when firing. Takes details on whether player is
      * shooting at AI or vice versa, as well as a firing coordinate. If it's a hit,
      * it updates the array list for hits, or updates array list for misses if it's not.
@@ -118,86 +145,66 @@ public class BattleshipModel {
         if (targetArea == null)
             return false;
 
-        if (targetSide == "comp") {
-            for(int i = 0; i < compShips.length; i++){
-                Coords start = compShips[i].getStart();
-                boolean vert = compShips[i].checkVert();
+        if (targetSide == "computer") {
+            if (checkShipCollisions(targetSide, targetArea) != null) {
+                computerHits.add(targetArea);
+                collision = true;
+            } else
+                computerMisses.add(targetArea);
 
-                if(vert){
-                    for (int j = 0; j < compShips[i].getLength(); j++) {
-                        if(targetArea.getDown() == start.getDown()+j && targetArea.getAcross() == start.getAcross()) {
-                            collision = true;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    for (int j = 0; j < compShips[i].getLength(); j++) {
-                        if (targetArea.getAcross() == start.getAcross() + j && targetArea.getDown() == start.getDown()) {
-                            collision = true;
-                            break;
-                        }
-                    }
-                }
-                if(collision)
-                    break;
-            }
-                if(collision)
-                    computerHits.add(targetArea);
-                else
-                    computerMisses.add(targetArea);
         }
-        else if (targetSide == "player"){
-            for(int i = 0; i < playerShips.length; i++){
-                Coords start = playerShips[i].getStart();
-                boolean vert = playerShips[i].checkVert();
-
-                if(vert){
-                    for (int j = 0; j < playerShips[i].getLength(); j++) {
-                        if(targetArea.getDown() == start.getDown()+j && targetArea.getAcross() == start.getAcross()) {
-                            collision = true;
-                            break;
-                        }
-                    }
-                }
-                else {
-                    for (int j = 0; j < playerShips[i].getLength(); j++) {
-                        if (targetArea.getAcross() == start.getAcross() + j  && targetArea.getDown() == start.getDown()) {
-                            collision = true;
-                            break;
-                        }
-                    }
-                }
-                if(collision)
-                    break;
-            }
-            if(collision)
+        else if (targetSide == "player")  {
+            if(checkShipCollisions(targetSide, targetArea) != null) {
                 playerHits.add(targetArea);
-            else
+                collision = true;
+            } else
                 playerMisses.add(targetArea);
         }
         else {
-            System.err.println("Parameters not designated.");
+            System.err.print("Parameters not designated.");
         }
+
         return collision;
     }
 
-
-    public void updateShipPosition(String name, int row, int column, String orientation) {
+    /* Update the position of a ship specified by name
+     * @param whichShips specifies which team's ship is being placed, either "player" or "computer"
+     * @param name the name of the ship to move
+     * @param row the row number to move the ship to (down)
+     * @param column the column number to move the ship to (across)
+     * @param orientation either "horizontal" or "vertical" indicating which direction the ship extends
+     * @return true if ship placed successfully, false otherwise
+     */
+    public boolean updateShipPosition(String whichShips, String name, int row, int column, String orientation) {
         Ship ship = getShipFromName(name);
+
+            for (int i = 0; i < ship.getLength() - 1; i++) {
+                if (orientation.equals("vertical")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column, row + i));
+                    if (collision != null && !collision.getName().equals(name))
+                        return false;
+
+                } else if (orientation.equals("horizontal")) {
+                    Ship collision = checkShipCollisions(whichShips, new Coords(column + i, row));
+                    if (collision != null && !collision.getName().equals(name))
+                        return false;
+                }
+            }
+
         ship.updatePosition(row, column, orientation);
 
         for (int i = 0; i < playerShips.length; i++) {
             if (name.equals(playerShips[i].getName())) {
-                playerShips[i].updatePosition(row, column, orientation);
+                return playerShips[i].updatePosition(row, column, orientation);
             }
         }
 
         for (int i = 0; i < compShips.length; i++) {
             if (name.equals(compShips[i].getName())) {
-                compShips[i].updatePosition(row, column, orientation);
+                return compShips[i].updatePosition(row, column, orientation);
             }
         }
+        return true;
     }
 
     // Makes it possible to retrieve ships from strings of their name
@@ -228,6 +235,8 @@ public class BattleshipModel {
 
         // New Random object to generate random shots
         Random randNum = new Random();
+        int across = (randNum.nextInt(GRID_SIZE) + 1);
+        int down = (randNum.nextInt(GRID_SIZE) + 1);
 
         if (computerRemainingFirableCoords.size() != 0) {
             int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
@@ -240,5 +249,4 @@ public class BattleshipModel {
             return null;
         }
     }
-
 }
