@@ -67,7 +67,7 @@ public class BattleshipModel {
         computerMisses = new ArrayList<Coords>();
       
         //Calls for clean new AI fireable array.
-        setCleanComputerShotArray()
+        setCleanComputerShotArray();
           
         if(test) {
             updateShipPosition("computer", "computer_aircraftCarrier", 1, 1, "horizontal");
