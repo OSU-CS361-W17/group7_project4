@@ -212,13 +212,15 @@ public class BattleshipModel {
 
         for (int i = 0; i < playerShips.length; i++) {
             if (name.equals(playerShips[i].getName())) {
-                return playerShips[i].updatePosition(row, column, orientation);
+                if (!playerShips[i].updatePosition(row, column, orientation))
+                    return false;
             }
         }
 
         for (int i = 0; i < compShips.length; i++) {
             if (name.equals(compShips[i].getName())) {
-                return compShips[i].updatePosition(row, column, orientation);
+                if(!compShips[i].updatePosition(row, column, orientation))
+                    return false;
             }
         }
         return true;

@@ -57,7 +57,8 @@ class BattleshipModelTest {
     }
 
     @Test
-    public void aiPlaceTest(){
+    public void aiPlaceTest() {
+
         BattleshipModel theModel = new BattleshipModel();
         Ship aircraftCarrier = theModel.getShipFromName("aircraftCarrier");
         assertFalse(aircraftCarrier.getStart().getAcross() == 0);
