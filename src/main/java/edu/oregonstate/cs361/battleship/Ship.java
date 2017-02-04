@@ -75,10 +75,10 @@ class Ship {
         return collision;
     }
     
-    public void updatePosition(int row, int column, String orientation) {
+    public boolean updatePosition(int row, int column, String orientation) {
         // Specified start position cannot be off-grid
         if (row <= 0 || row > GRID_SIZE || column <= 0 || column > GRID_SIZE)
-            return;
+            return false;
 
         Coords start = getStart();
         Coords end = getEnd();
@@ -92,11 +92,12 @@ class Ship {
             end.setDown(row + getLength() - 1);
         }
         else {
-            return;
+            return false;
         }
 
         start.setDown(row);
         start.setAcross(column);
         setVert(orientation);
+        return true;
     }
 }
