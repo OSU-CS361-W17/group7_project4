@@ -33,6 +33,7 @@ public class BattleshipModel {
     // Tracks AI's remaining fireable Coords
     private ArrayList<Coords> computerRemainingFirableCoords;
 
+
     public BattleshipModel() {
         aircraftCarrier = new Ship("aircraftCarrier", 5);
         battleship = new Ship("battleship", 4);
@@ -113,6 +114,9 @@ public class BattleshipModel {
      */
     public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
+
+        if (targetArea == null)
+            return false;
 
         if (targetSide == "comp") {
             for(int i = 0; i < compShips.length; i++){
@@ -221,13 +225,20 @@ public class BattleshipModel {
     @return Coords
     */
     public Coords getComputerFireCoords() {
-        Random randNum = new Random();
-        int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
 
-        Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
-        computerRemainingFirableCoords.remove(shotArrayNum);
-        System.out.println(shot.getAcross() + ", " + shot.getDown());
-        return shot;
+        // New Random object to generate random shots
+        Random randNum = new Random();
+
+        if (computerRemainingFirableCoords.size() != 0) {
+            int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
+            Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
+            computerRemainingFirableCoords.remove(shotArrayNum);
+            System.out.println(shot.getAcross() + ", " + shot.getDown());
+            return shot;
+        }
+        else {
+            return null;
+        }
     }
 
 }
