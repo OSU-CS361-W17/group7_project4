@@ -135,7 +135,7 @@ public class BattleshipModel {
                 playerMisses.add(targetArea);
         }
         else {
-            System.err.println("Parameters not designated.");
+            System.err.print("Parameters not designated.");
         }
 
         return collision;

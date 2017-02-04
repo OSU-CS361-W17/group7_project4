@@ -2,6 +2,9 @@ package edu.oregonstate.cs361.battleship;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BattleshipModelTest {
@@ -57,7 +60,27 @@ class BattleshipModelTest {
         assertTrue(theModel.getPlayerHits().size() == 0 && theModel.getPlayerMisses().size() == 0);
 
         theModel.updateShot("player", theModel.getComputerFireCoords());
-
         assertTrue(theModel.getPlayerHits().size() == 1 || theModel.getPlayerMisses().size() == 1);
+
+        assertTrue(theModel.updateShot("computer",new Coords(0,0)));
+        assertFalse(theModel.updateShot("computer",new Coords(1,1)));
+
+        theModel.updateShipPosition("computer","computer_aircraftCarrier",2,1,"vertical");
+        assertTrue(theModel.updateShot("computer", new Coords(1,2)));
+
+        assertTrue(theModel.updateShot("player",new Coords(0,0)));
+        assertFalse(theModel.updateShot("player",new Coords(1,1)));
+
+        theModel.updateShipPosition("player","aircraftCarrier",3,1,"vertical");
+        assertTrue(theModel.updateShot("player",new Coords(1,3)));
+        
+        //System.err.print() testing code from Stack-Overflow
+        ByteArrayOutputStream errorTest = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(errorTest));
+
+        theModel.updateShot(null, new Coords(1,1));
+
+        assertEquals("Parameters not designated.", errorTest.toString());
+        //End Stack-Overflow code
     }
 }
