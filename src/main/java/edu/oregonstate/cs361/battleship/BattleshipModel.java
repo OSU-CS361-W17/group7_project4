@@ -148,7 +148,7 @@ public class BattleshipModel {
                 playerMisses.add(targetArea);
         }
         else {
-            System.err.println("Parameters not designated.");
+            System.err.print("Parameters not designated.");
         }
 
         return collision;
@@ -182,13 +182,13 @@ public class BattleshipModel {
 
         for (int i = 0; i < playerShips.length; i++) {
             if (name.equals(playerShips[i].getName())) {
-                playerShips[i].updatePosition(row, column, orientation);
+                return playerShips[i].updatePosition(row, column, orientation);
             }
         }
 
         for (int i = 0; i < compShips.length; i++) {
             if (name.equals(compShips[i].getName())) {
-                compShips[i].updatePosition(row, column, orientation);
+                return compShips[i].updatePosition(row, column, orientation);
             }
         }
         return true;
