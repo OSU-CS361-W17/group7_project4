@@ -35,6 +35,10 @@ public class BattleshipModel {
 
 
     public BattleshipModel() {
+        this(false);
+    }
+
+    public BattleshipModel(boolean test) {
         aircraftCarrier = new Ship("aircraftCarrier", 5);
         battleship = new Ship("battleship", 4);
         cruiser = new Ship("cruiser", 3);
@@ -61,22 +65,22 @@ public class BattleshipModel {
         playerMisses = new ArrayList<Coords>();
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
-
-        //Initialize AI ships on coords
-        //randomize ai placement
-        placeAllAI();
-
-
-        /* non random ship placement - Uncomment to text stat
-        updateShipPosition("computer","computer_aircraftCarrier", 2, 2, "horizontal");
-        updateShipPosition("computer", "computer_battleship", 3, 8, "vertical");
-        updateShipPosition("computer", "computer_cruiser", 1, 6, "vertical");
-        updateShipPosition("computer", "computer_destroyer", 9, 9, "horizontal");
-        updateShipPosition("computer", "computer_submarine", 5, 5, "horizontal");
-        */
-
+      
         //Calls for clean new AI fireable array.
-        setCleanComputerShotArray();
+        setCleanComputerShotArray()
+          
+        if(test) {
+            updateShipPosition("computer", "computer_aircraftCarrier", 1, 1, "horizontal");
+            updateShipPosition("computer", "computer_battleship", 2, 1, "horizontal");
+            updateShipPosition("computer", "computer_cruiser", 3, 1, "horizontal");
+            updateShipPosition("computer", "computer_destroyer", 4, 1, "horizontal");
+            updateShipPosition("computer", "computer_submarine", 5, 1, "vertical");
+        }
+        else {
+            //Initialize AI ships on coords
+            //randomize ai placement
+            placeAllAI();
+        }
     }
 
     /*
