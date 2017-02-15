@@ -38,28 +38,13 @@ function placeShip() {
 }
 
 //Similar to placeShip, but instead it will fire at a location the user selects.
-function fire(){
-   var request = $.ajax({
-     url: "/fire/"+$( "#colFire" ).val()+"/"+$( "#rowFire" ).val(),
-     method: "post",
-     data: JSON.stringify(gameModel),
-     contentType: "application/json; charset=utf-8",
-     dataType: "json"
-   });
-
-   request.done(function( currModel ) {
-     displayGameState(currModel);
-     gameModel = currModel;
-
-   });
-
-   request.fail(function( jqXHR, textStatus ) {
-     alert( "Request failed: " + textStatus );
-   });
-
-}
-
-function fire(row, column){
+function fire(row, column) {
+    if (!row) {
+        row = $( "#colFire" ).val();
+    }
+    if (!column) {
+        column = $( "#rowFire" ).val();
+    }
     var request = $.ajax({
         url: "/fire/"+column+"/"+row,
         method: "post",
