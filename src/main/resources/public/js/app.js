@@ -15,7 +15,7 @@ $( document ).ready(function() {
 });
 
 function placeShip() {
-   // This ajax call will asnyc+honously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
+   // This ajax call will asynchronously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
      url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
      method: "post",
