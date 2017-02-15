@@ -348,21 +348,5 @@
 
 </section>
 </body>
-<script>
-   $('#TheirBoard td').click(function(event) {
-   console.log("CLICK EVENT");
 
-   $.ajax("/fire", {
-      success: function(data) {
-         <!--$('#main').html($(data).find('#main *'));-->
-         <!--$('#notification-bar').text('The page has been successfully loaded');-->
-         console.log("FIRE SUCCESS");
-      },
-      error: function() {
-         <!--$('#notification-bar').text('An error occurred');-->
-         console.log("FIRE FAIL");
-      }
-   });
-});
-</script>
 </html>
