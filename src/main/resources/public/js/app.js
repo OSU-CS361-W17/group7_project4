@@ -67,8 +67,8 @@ function fire(row, column) {
 
 //This function will display the game model.  It displays the ships on the users board, and then shows where there have been hits and misses on both boards.
 function displayGameState(gameModel){
-$( '#MyBoard td'  ).css("background-color", "blue");
-$( '#TheirBoard td'  ).css("background-color", "blue");
+$( '#MyBoard td'  ).css("background-color", "DarkBlue");
+$( '#TheirBoard td'  ).css("background-color", "DarkBlue");
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
@@ -104,11 +104,11 @@ function displayShip(ship){
  if(startCoordAcross > 0){
     if(startCoordAcross == endCoordAcross){
         for (i = startCoordDown; i <= endCoordDown; i++) {
-            $( '#MyBoard #'+i+'_'+startCoordAcross  ).css("background-color", "yellow");
+            $( '#MyBoard #'+i+'_'+startCoordAcross  ).css("background-color", "slategrey");
         }
     } else {
         for (i = startCoordAcross; i <= endCoordAcross; i++) {
-            $( '#MyBoard #'+startCoordDown+'_'+i  ).css("background-color", "yellow");
+            $( '#MyBoard #'+startCoordDown+'_'+i  ).css("background-color", "slategrey");
         }
     }
  }
