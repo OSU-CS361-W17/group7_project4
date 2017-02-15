@@ -97,6 +97,8 @@ class Ship {
 
         start.setDown(row);
         start.setAcross(column);
+
+
         setVert(orientation);
         return true;
     }
