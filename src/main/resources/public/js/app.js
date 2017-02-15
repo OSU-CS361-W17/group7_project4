@@ -7,6 +7,11 @@ $( document ).ready(function() {
     displayGameState(json);
     gameModel = json;
    });
+
+    $( '#TheirBoard' ).on("click", "td", function (event) {
+        var coords = this.id.split("_");
+        fire(coords[0], coords[1]);
+    });
 });
 
 function placeShip() {
@@ -51,6 +56,27 @@ function fire(){
    request.fail(function( jqXHR, textStatus ) {
      alert( "Request failed: " + textStatus );
    });
+
+}
+
+function fire(row, column){
+    var request = $.ajax({
+        url: "/fire/"+column+"/"+row,
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
+
+    request.done(function( currModel ) {
+        displayGameState(currModel);
+        gameModel = currModel;
+
+    });
+
+    request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + textStatus );
+    });
 
 }
 
