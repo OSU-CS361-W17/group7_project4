@@ -32,7 +32,7 @@ function placeShip() {
    });
 
    // if there is a problem, and the back end does not respond, then an alert will be shown.
-   equest.fail(function( jqXHR, textStatus ) {
+   request.fail(function( jqXHR, textStatus ) {
      alert( "Request failed: " + textStatus );
    });
 }
