@@ -4,26 +4,63 @@ body {
     padding: 0;
 }
 
+#sideBySideBoard
+{
+    width: 60%;
+    margin-top:1%;
+    margin-left: 1px;
+    border-width: 1px;
+    border-style: dashed;
+    border-radius: 5px;
+    border-color: firebrick;
+    overflow: hidden;
+}
+
+#MyBoard, #TheirBoard
+{
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+}
+
+#fireDiv{
+    float: left;
+}
+
+#MyBoard {
+    margin-left: 10px;
+    float: left;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+}
+#TheirBoard {
+    margin-right: 10px;
+    float: right;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+}
+
 .gameBoard{
-/*with:100px;
-height:100px;*/
+width:450px;
+height:500px;
 background-color: lightgray;
 }
 
 .gameBoard td {
 width: 40px;
 height:40px;
-background-color:blue;
+/*background-color:DarkBlue;*/
 }
 
 table, th, td {
    border: 1px solid black;
 }
 
-#MyBoard .ship{
+/*#MyBoard .ship{
 background-color: orange;
-}
-
+}*/
 /*
 button {
     margin: 0;
