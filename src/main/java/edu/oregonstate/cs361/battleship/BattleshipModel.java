@@ -33,6 +33,7 @@ public class BattleshipModel {
     // Tracks AI's remaining fireable Coords
     private ArrayList<Coords> computerRemainingFirableCoords;
 
+    private boolean scanResult = false;
 
     public BattleshipModel() {
         this(false);
@@ -291,4 +292,26 @@ public class BattleshipModel {
                 placeAIShip("computer_battleship");
                 placeAIShip("computer_cruiser");
     }
+
+    /* Perform a scan and update scanResult if one of the computer's ships falls into the plus region
+     * where the specified coordinates is the center of the plus
+     * @param row the row (down) of the center of the scan
+     * @param column the column (across) of the center of the scan
+     */
+    public void scan(int row, int column) {
+        Coords coord = new Coords(column, row);
+        scanResult = false;
+
+        for (Ship ship : compShips) {
+            if(ship.scan(coord))
+                scanResult = true;
+        }
+    }
+
+    /* Get the scanResult boolean (for after a scan has been performed)
+     * @return true if scan found an enemy ship, false otherwise
+     */
+    public boolean getScanResult() {
+            return scanResult;
+        }
 }
