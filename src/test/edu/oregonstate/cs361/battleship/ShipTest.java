@@ -107,4 +107,15 @@ class ShipTest {
         //Horizontal Ship should return false
         assertFalse(ship.checkVert());
     }
+
+    @Test
+    public void scanTest() {
+        Ship s = new Ship("AircraftCarrier",5, new Coords(5,2),new Coords(5,7));
+        assertEquals(false,s.scan(new Coords(1,1)));
+        assertEquals(true,s.scan(new Coords(4,2)));
+        assertEquals(true,s.scan(new Coords(5,2)));
+        assertEquals(true,s.scan(new Coords(6,2)));
+        assertEquals(true,s.scan(new Coords(5,1)));
+        assertEquals(true,s.scan(new Coords(5,3)));
+    }
 }
