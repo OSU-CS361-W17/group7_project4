@@ -3,14 +3,19 @@ var gameModel;
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
-  $.getJSON("model", function( json ) {
-    displayGameState(json);
-    gameModel = json;
-   });
+    $.getJSON("model", function (json) {
+        displayGameState(json);
+        gameModel = json;
+    });
 
-    $( '#TheirBoard' ).on("click", "td", function (event) {
+    $('#TheirBoard').on("click", "td", function (event) {
         var coords = this.id.split("_");
         fire(coords[0], coords[1]);
+    });
+
+    $('#TheirBoard').on("contextmenu", "td", function (event) {
+        var coords = this.id.split("_");
+        scan(coords[0], coords[1]);
     });
 });
 
@@ -35,7 +40,7 @@ function placeShip() {
    request.fail(function( jqXHR, textStatus ) {
      alert( "Request failed: " + textStatus );
    });
-}
+};
 
 //Similar to placeShip, but instead it will fire at a location the user selects.
 function fire(row, column) {
@@ -65,6 +70,100 @@ function fire(row, column) {
 
 }
 
+// Perform a scan at the specified coordintes
+function scan(row, column) {
+    var request = $.ajax({
+        url: "/scan/"+row+"/"+column,
+        method: "post",
+        data: JSON.stringify(gameModel),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    });
+
+    request.done(function (currModel) {
+        gameModel = currModel;
+        displayGameState(gameModel);
+        scanAnimation(row, column, gameModel.scanResult);
+        displayGameState(gameModel);
+    });
+
+    request.fail(function( jqXHR, textStatus) {
+        alert( "Request failed: " + textStatus);
+    })
+}
+
+// Displays an animated plus and colored results after a scan
+function scanAnimation(row, column, scanResult) {
+    setTimeout(function() {
+        $("#TheirBoard #" + row + "_" + column).css("background-color", "Gold");
+        setTimeout(function() {
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            row++;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", "Gold");
+            row -= 2;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", "Gold");
+            row++;
+            column++;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", "Gold");
+            column -= 2;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", "Gold");
+            column++;
+            setTimeout(function() {
+                row++;
+                $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+                row -= 2;
+                $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+                row += 1;
+                column++;
+                $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+                column -= 2;
+                $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+                column++;
+
+                if (scanResult)
+                    scanBlinkAnimation(row, column, "red", 3);
+                else
+                    scanBlinkAnimation(row, column, "white", 3);
+
+
+            }, 200);
+        }, 200);
+    }, 200);
+}
+
+// The second half of the scan animation, blinks a color multiple times
+function scanBlinkAnimation(row, column, color, repeat) {
+    if (repeat > 0) {
+        setTimeout(function() {
+        $("#TheirBoard #" + row + "_" + column).css("background-color", color);
+        row++;
+        $("#TheirBoard #" + row + "_" + column).css("background-color", color);
+        row -= 2;
+        $("#TheirBoard #" + row + "_" + column).css("background-color", color);
+        row++;
+        column++;
+        $("#TheirBoard #" + row + "_" + column).css("background-color", color);
+        column -= 2;
+        $("#TheirBoard #" + row + "_" + column).css("background-color", color);
+        column++;
+        setTimeout(function () {
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            row++;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            row -= 2;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            row++;
+            column++;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            column -= 2;
+            $("#TheirBoard #" + row + "_" + column).css("background-color", getTileColor(row, column));
+            column++;
+            scanBlinkAnimation(row, column, color, repeat - 1)
+        }, 500);
+        }, 200);
+    }
+}
+
 //This function will display the game model.  It displays the ships on the users board, and then shows where there have been hits and misses on both boards.
 function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "DarkBlue");
@@ -89,9 +188,20 @@ for (var i = 0; i < gameModel.playerMisses.length; i++) {
 for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
+}
 
-
-
+// Gets an individual tile's intended color (for the computer's board only)
+// Used for the scan animations
+function getTileColor(row, column) {
+    for (var i = 0; i < gameModel.computerMisses.length; i++) {
+        if (gameModel.computerMisses[i].Down == row && gameModel.computerMisses[i].Across == column)
+            return "green";
+    }
+    for (var i = 0; i < gameModel.computerHits.length; i++) {
+        if (gameModel.computerHits[i].Down == row && gameModel.computerHits[i].Across == column)
+            return "red";
+    }
+    return "DarkBlue";
 }
 
 
