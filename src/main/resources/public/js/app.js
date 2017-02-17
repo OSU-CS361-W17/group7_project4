@@ -1,4 +1,5 @@
 var gameModel;
+var alerted = false;
 
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
@@ -53,6 +54,7 @@ function fire(row, column) {
         dataType: "json"
     });
 
+
     request.done(function( currModel ) {
         displayGameState(currModel);
         gameModel = currModel;
@@ -82,7 +84,6 @@ for (var i = 0; i < gameModel.computerMisses.length; i++) {
 for (var i = 0; i < gameModel.computerHits.length; i++) {
    $( '#TheirBoard #' + gameModel.computerHits[i].Down + '_' + gameModel.computerHits[i].Across ).css("background-color", "red");
 }
-
 for (var i = 0; i < gameModel.playerMisses.length; i++) {
    $( '#MyBoard #' + gameModel.playerMisses[i].Down + '_' + gameModel.playerMisses[i].Across ).css("background-color", "green");
 }
@@ -90,7 +91,18 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
 
-
+/* Waits a moment for the browser to finish updating, then checks to see
+ * if a "Game Over" alert has already been thrown. If not, it alerts the
+ * the user with "Game Over" and sets "Alerted" to true.
+ */
+setTimeout( function(){
+    if (gameModel.gameOver){
+        if(!alerted){
+            alert("Game Over.\nRefresh to play again.");
+            alerted = true;
+        }
+    }
+}, 50);
 
 }
 
