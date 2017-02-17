@@ -3,19 +3,22 @@ var gameModel;
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
-  $.getJSON("model", function( json ) {
-    displayGameState(json);
-    gameModel = json;
+    var audio = new Audio('audio/Music.mp3');
+    audio.play();
+
+  $.getjson("model", function( json ) {
+    displaygamestate(json);
+    gamemodel = json;
    });
 
-    $( '#TheirBoard' ).on("click", "td", function (event) {
+    $( '#theirboard' ).on("click", "td", function (event) {
         var coords = this.id.split("_");
         fire(coords[0], coords[1]);
     });
 });
 
-function placeShip() {
-   // This ajax call will asynchronously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
+function placeship() {
+   // this ajax call will asynchronously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
      url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
      method: "post",

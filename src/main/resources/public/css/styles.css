@@ -27,7 +27,7 @@ body {
 }
 
 .header, .footer {
-    background-color: darkslategrey;
+    background-color: #000080;
     color: white;
     padding: 5px;
 }
@@ -35,7 +35,7 @@ body {
 .column{
     display: inline-block;
 
-    background-color: lightgray;
+    background-color: lightgrey;
 
     border-left: 5px solid black;
     border-right: 5px solid black;
@@ -60,9 +60,19 @@ body {
     font-size: 18px;
 }
 
+.flag{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0px;
+    left:0px;
+
+}
+
 .titleImage{
-    max-width: 50%;
+    max-width: 80%;
     height: auto;
+    position: relative;
 }
 
 .image{
@@ -88,6 +98,22 @@ table {
     width: 80%;
     height: 90%;
     border: 1px solid black;
+}
+
+
+.fly {
+    position: fixed;
+    top: 80%;
+    left: 100%;
+    height: 80px;
+    width: 300px;
+    background-size: 20% 20%;
+    animation: fly2 10s linear infinite;
+}
+
+@keyframes fly2 {
+    0% { left: 100%; }
+    70%, 100% { left: -300px; }
 }
 
 /*#MyBoard .ship{
