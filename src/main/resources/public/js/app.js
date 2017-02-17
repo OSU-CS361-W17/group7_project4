@@ -104,6 +104,15 @@ setTimeout( function(){
     }
 }, 50);
 
+//Remaining Ships updating here??? TODO
+/*
+for (var i = 0; i < gameModel.compShips.length-1; i++){
+    if (compShips[i].isSunk === true) {
+        document.getElementById(compShips[i].name).setAttribute("class", "hidden");
+    }
+}
+*/
+
 }
 
 
