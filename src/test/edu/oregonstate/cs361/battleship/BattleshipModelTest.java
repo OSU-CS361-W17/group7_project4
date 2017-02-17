@@ -79,4 +79,15 @@ class BattleshipModelTest {
         assertFalse(theModel.updateShot("player", null));
         assertFalse(theModel.updateShot("computer", null));
     }
+
+    @Test
+    public void scanTest() {
+        BattleshipModel model = new BattleshipModel(true);
+
+        model.scan(4, 2);
+        assertTrue(model.getScanResult());
+
+        model.scan(9,9);
+        assertFalse(model.getScanResult());
+    }
 }

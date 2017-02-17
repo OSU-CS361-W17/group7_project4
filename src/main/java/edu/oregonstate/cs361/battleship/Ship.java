@@ -102,4 +102,23 @@ class Ship {
         setVert(orientation);
         return true;
     }
+
+    /* Scan for the ship in a plus shape surrounding coord
+     * @param coord the target of the scan (the center of the plus)
+     * @return true if ship is inside of scan region, false otherwise
+     */
+    public boolean scan(Coords coord) {
+        if (checkCollision(coord))
+            return true;
+        if (checkCollision(new Coords(coord.getAcross()-1, coord.getDown())))
+            return true;
+        if (checkCollision(new Coords(coord.getAcross()+1, coord.getDown())))
+            return true;
+        if (checkCollision(new Coords(coord.getAcross(), coord.getDown()-1)))
+            return true;
+        if (checkCollision(new Coords(coord.getAcross(), coord.getDown()+1)))
+            return true;
+
+        return false;
+    }
 }

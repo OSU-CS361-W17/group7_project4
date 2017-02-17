@@ -24,6 +24,8 @@ public class Main {
         get("/model", (req, res) -> newModel());
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
         post("/fire/:row/:col", (req, res) -> fireAt(req));
+        //This will listen to POST requests and expects to receive a game model, as well as location to scan
+        post("/scan/:row/:col", (req, res) -> scan(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to place the ship
         post("/placeShip/:name/:row/:col/:orientation", (req, res) -> placeShip(req));
     }
@@ -92,5 +94,23 @@ public class Main {
         theModel.updateShot("player", targetCoords);
 
         return getJSONFromModel(theModel);
+    }
+
+    /* Scan for enemy ships at row and column specified in request, then have the AI shoot at the player
+     * @param req the POST request body with parameters "row" and "col"
+     * @return Returns the BattleshipModel after scanning & firing in the form of a JSON string
+     */
+    private static String scan(Request req) {
+        BattleshipModel model = getModelFromReq(req);
+        int row = Integer.parseInt(req.params("row"));
+        int column = Integer.parseInt(req.params("col"));
+
+        model.scan(row, column);
+
+        // Fire at player
+        Coords target = model.getComputerFireCoords();
+        model.updateShot("player", target);
+
+        return getJSONFromModel(model);
     }
 }

@@ -15,7 +15,7 @@ $( document ).ready(function() {
 });
 
 function placeShip() {
-   // This ajax call will asnychonously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
+   // This ajax call will asynchronously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
      url: "/placeShip/"+$( "#shipSelec" ).val()+"/"+$( "#rowSelec" ).val()+"/"+$( "#colSelec" ).val()+"/"+$( "#orientationSelec" ).val(),
      method: "post",
@@ -45,27 +45,6 @@ function fire(row, column) {
     if (!column) {
         column = $( "#rowFire" ).val();
     }
-    var request = $.ajax({
-        url: "/fire/"+column+"/"+row,
-        method: "post",
-        data: JSON.stringify(gameModel),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    });
-
-    request.done(function( currModel ) {
-        displayGameState(currModel);
-        gameModel = currModel;
-
-    });
-
-    request.fail(function( jqXHR, textStatus ) {
-        alert( "Request failed: " + textStatus );
-    });
-
-}
-
-function fire(row, column){
     var request = $.ajax({
         url: "/fire/"+column+"/"+row,
         method: "post",
