@@ -59,6 +59,21 @@ function fire(row, column) {
         displayGameState(currModel);
         gameModel = currModel;
 
+        setTimeout( function(){
+            for (var i = 0; i < gameModel.compShips.length; i++){
+                if (gameModel.compShips[i].isSunk == true) {
+                    document.getElementById(gameModel.compShips[i].name).setAttribute("class", "hidden");
+                }
+            }
+
+            if (gameModel.gameOver){
+                if(!alerted){
+                     alert("Game Over.\nRefresh to play again.");
+                     alerted = true;
+                     }
+                }
+        }, 50);
+
     });
 
     request.fail(function( jqXHR, textStatus ) {
@@ -90,28 +105,6 @@ for (var i = 0; i < gameModel.playerMisses.length; i++) {
 for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
-
-/* Waits a moment for the browser to finish updating, then checks to see
- * if a "Game Over" alert has already been thrown. If not, it alerts the
- * the user with "Game Over" and sets "Alerted" to true.
- */
-setTimeout( function(){
-    if (gameModel.gameOver){
-        if(!alerted){
-            alert("Game Over.\nRefresh to play again.");
-            alerted = true;
-        }
-    }
-}, 50);
-
-//Remaining Ships updating here??? TODO
-/*
-for (var i = 0; i < gameModel.compShips.length-1; i++){
-    if (compShips[i].isSunk === true) {
-        document.getElementById(compShips[i].name).setAttribute("class", "hidden");
-    }
-}
-*/
 
 }
 

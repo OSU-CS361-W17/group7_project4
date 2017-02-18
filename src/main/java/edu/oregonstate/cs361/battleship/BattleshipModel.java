@@ -327,20 +327,21 @@ public class BattleshipModel {
      */
     private void checkGameOver(String targetArea){
         if (targetArea == "player") {
-            for (int i = 0; i < playerShips.length - 1; i++) {
-                if (playerShips[i].checkSunk() == false)
+            for (int i = 0; i < playerShips.length; i++) {
+                if (!playerShips[i].checkSunk())
                     return;
             }
         }
         else if (targetArea == "computer") {
-            for (int i = 0; i < compShips.length - 1; i++) {
-                if (compShips[i].checkSunk() == false)
+            for (int i = 0; i < compShips.length; i++) {
+                if (!compShips[i].checkSunk())
                     return;
             }
         }
-        else
+        else {
             System.err.print("Something went wrong.");
-
+        }
         gameOver = true;
+        return;
     }
 }
