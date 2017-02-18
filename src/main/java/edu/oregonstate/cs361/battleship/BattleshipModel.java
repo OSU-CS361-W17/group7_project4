@@ -35,6 +35,8 @@ public class BattleshipModel {
 
     private boolean scanResult = false;
 
+    public boolean gameOver = false;
+
     public BattleshipModel() {
         this(false);
     }
@@ -160,20 +162,26 @@ public class BattleshipModel {
     public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
 
+        Ship tempShip = checkShipCollisions(targetSide, targetArea);
+
         if (targetArea == null)
             return false;
 
         if (targetSide == "computer") {
-            if (checkShipCollisions(targetSide, targetArea) != null) {
+            if (tempShip != null) {
                 computerHits.add(targetArea);
+                if(tempShip.addHit())
+                    checkGameOver("computer");
                 collision = true;
             } else
                 computerMisses.add(targetArea);
 
         }
         else if (targetSide == "player")  {
-            if(checkShipCollisions(targetSide, targetArea) != null) {
+            if(tempShip != null) {
                 playerHits.add(targetArea);
+                if(tempShip.addHit())
+                    checkGameOver("player");
                 collision = true;
             } else
                 playerMisses.add(targetArea);
@@ -311,7 +319,29 @@ public class BattleshipModel {
     /* Get the scanResult boolean (for after a scan has been performed)
      * @return true if scan found an enemy ship, false otherwise
      */
-    public boolean getScanResult() {
-            return scanResult;
+    public boolean getScanResult() { return scanResult; }
+
+    /*
+     *
+     *
+     */
+    private void checkGameOver(String targetArea){
+        if (targetArea == "player") {
+            for (int i = 0; i < playerShips.length; i++) {
+                if (!playerShips[i].checkSunk())
+                    return;
+            }
         }
+        else if (targetArea == "computer") {
+            for (int i = 0; i < compShips.length; i++) {
+                if (!compShips[i].checkSunk())
+                    return;
+            }
+        }
+        else {
+            System.err.print("Something went wrong.");
+        }
+        gameOver = true;
+        return;
+    }
 }

@@ -6,9 +6,11 @@ class Ship {
 
     private String name;
     private int length;
+    private int hitCounter = 0;
     private Coords start;
     private Coords end;
     private boolean isVert = false;
+    private boolean isSunk = false;
 
     Ship(String name, int length) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
@@ -120,5 +122,25 @@ class Ship {
             return true;
 
         return false;
+    }
+
+    /* Return's a Boolean describing whether the ship has been sunk or not
+     * @return true if ship is sunk, false otherwise
+     */
+    public boolean checkSunk() { return isSunk; }
+
+    /* Increments the number of hits on the ship, and checks it against the number of possible hits
+     * Sets isSunk to true if the ship has taken the maximum number of hits
+     * @return isSunk
+     */
+    public boolean addHit(){
+        if(isSunk)
+            return isSunk;
+
+        hitCounter++;
+        if(hitCounter == length)
+            isSunk = true;
+
+        return isSunk;
     }
 }
