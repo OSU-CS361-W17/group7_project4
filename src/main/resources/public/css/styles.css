@@ -100,10 +100,6 @@ table {
     border: 1px solid black;
 }
 
-.hitmiss{
-
-
-}
 
 
 .fly {
@@ -113,7 +109,7 @@ table {
     height: 80px;
     width: 300px;
     background-size: 20% 20%;
-    animation: fly2 10s linear infinite;
+    animation: fly2 20s linear infinite;
 }
 
 @keyframes fly2 {
