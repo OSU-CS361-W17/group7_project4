@@ -4,6 +4,11 @@ var alerted = false;
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
+
+     var audio = new Audio('audio/Music.mp3');
+        audio.play();
+
+
     $.getJSON("model", function (json) {
         displayGameState(json);
         gameModel = json;
