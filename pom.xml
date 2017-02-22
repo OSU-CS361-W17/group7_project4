@@ -38,11 +38,6 @@
 						<artifactId>junit-jupiter-engine</artifactId>
 						<version>RELEASE</version>
 					</dependency>
-					<dependency>
-						<groupId>org.junit.vintage</groupId>
-						<artifactId>junit-vintage-engine</artifactId>
-						<version>RELEASE</version>
-					</dependency>
 				</dependencies>
 	    </plugin>
         </plugins>
@@ -63,7 +58,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>RELEASE</version>
-	    <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
