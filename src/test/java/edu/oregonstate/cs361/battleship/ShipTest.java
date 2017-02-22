@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShipTest {
 
     @Test
-    public void testShip() {
+    public void shipTest() {
         Ship ship = new Ship("Test Ship", 3);
 
         // No specified coordinates should start ship in 0,0 (off-grid)
