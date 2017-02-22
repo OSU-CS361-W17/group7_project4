@@ -1,4 +1,4 @@
-# cs361 Project 2
+# cs361 Project 2 [![Build Status](https://travis-ci.org/OSU-CS361-W17/group7_project2.svg?branch=master)](https://travis-ci.org/OSU-CS361-W17/group7_project2)
 This is the code you will use as a starting point for Project 2.  The code you have been given has the back end for a [battleship](https://en.wikipedia.org/wiki/Battleship_(game)) game. All instructions for this assignment are available on Canvas.
 
 # Tips and tricks:
