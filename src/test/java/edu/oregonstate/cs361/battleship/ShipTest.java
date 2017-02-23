@@ -118,4 +118,5 @@ class ShipTest {
         assertEquals(true,s.scan(new Coords(5,1)));
         assertEquals(true,s.scan(new Coords(5,3)));
     }
+
 }

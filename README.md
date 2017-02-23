@@ -1,4 +1,4 @@
-#CS361 Project 3
+#CS361 Project 3 [![Build Status](https://travis-ci.org/OSU-CS361-W17/group7_project3.svg?branch=master)](https://travis-ci.org/OSU-CS361-W17/group7_project3)
 For Project Stage 3, your group will import your group's code from Project Stage 2. The goal of this stage is to expand the game and refine the quality of code for the Battleship (Links to an external site.) game previously developed. The focus is on using Object-Oriented design (specifically inheritance).
 
 Users are enjoying version 2 of your Battleship game, and it's popularity has increased dramatically, but some users are beginning to complain that the game play is boring after playing a few games. Some of these users have requested more variety to the types of ships that can be played. The marketing department has run several user focus groups and come up with the following suggestions:
