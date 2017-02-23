@@ -162,10 +162,10 @@ public class BattleshipModel {
     public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
 
-        Ship tempShip = checkShipCollisions(targetSide, targetArea);
-
         if (targetArea == null)
             return false;
+
+        Ship tempShip = checkShipCollisions(targetSide, targetArea);
 
         if (targetSide == "computer") {
             if (tempShip != null) {
