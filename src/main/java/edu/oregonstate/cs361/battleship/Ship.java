@@ -11,6 +11,7 @@ class Ship {
     private Coords end;
     private boolean isVert = false;
     private boolean isSunk = false;
+    protected String type; // Set equal to the class name so deserialization uses the proper type
 
     Ship(String name, int length) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
@@ -30,6 +31,8 @@ class Ship {
 
         if(start.getDown() != end.getDown())
             isVert = true;
+
+        type = "Ship";
     }
 
     String getName() { return name; }
