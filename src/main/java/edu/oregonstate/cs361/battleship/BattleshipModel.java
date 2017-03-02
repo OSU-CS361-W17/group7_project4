@@ -43,10 +43,10 @@ public class BattleshipModel {
 
     public BattleshipModel(boolean test) {
         aircraftCarrier = new MilitaryShip("aircraftCarrier", 5, false);
-        battleship = new MilitaryShip("battleship", 4, false);
+        battleship = new MilitaryShip("battleship", 4, true);
         clipper = new Ship("clipper", 3);
         dinghy = new Ship("dinghy", 1);
-        submarine = new MilitaryShip("submarine", 2, false);
+        submarine = new MilitaryShip("submarine", 2, true);
         playerShips[0] = aircraftCarrier;
         playerShips[1] = battleship;
         playerShips[2] = clipper;
@@ -54,10 +54,10 @@ public class BattleshipModel {
         playerShips[4] = submarine;
 
         computer_aircraftCarrier = new MilitaryShip("computer_aircraftCarrier", 5, false);
-        computer_battleship = new MilitaryShip("computer_battleship", 4, false);
+        computer_battleship = new MilitaryShip("computer_battleship", 4, true);
         computer_clipper = new Ship("computer_clipper", 3);
         computer_dinghy = new Ship("computer_dinghy", 1);
-        computer_submarine = new MilitaryShip("computer_submarine", 2, false);
+        computer_submarine = new MilitaryShip("computer_submarine", 2, true);
         compShips[0] = computer_aircraftCarrier;
         compShips[1] = computer_battleship;
         compShips[2] = computer_clipper;
