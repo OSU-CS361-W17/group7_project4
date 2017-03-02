@@ -10,19 +10,19 @@ public class BattleshipModel {
 
     // Player's ships
     private Ship[] playerShips = new Ship[5];
-    private Ship aircraftCarrier;
-    private Ship battleship;
-    private Ship cruiser;
-    private Ship destroyer;
-    private Ship submarine;
+    private MilitaryShip aircraftCarrier;
+    private MilitaryShip battleship;
+    private Ship clipper;
+    private Ship dinghy;
+    private MilitaryShip submarine;
 
     // AI's ships
     private Ship[] compShips = new Ship[5];
-    private Ship computer_aircraftCarrier;
-    private Ship computer_battleship;
-    private Ship computer_cruiser;
-    private Ship computer_destroyer;
-    private Ship computer_submarine;
+    private MilitaryShip computer_aircraftCarrier;
+    private MilitaryShip computer_battleship;
+    private Ship computer_clipper;
+    private Ship computer_dinghy;
+    private MilitaryShip computer_submarine;
 
     // Shots fired
     private ArrayList<Coords> playerHits;
@@ -43,25 +43,25 @@ public class BattleshipModel {
 
     public BattleshipModel(boolean test) {
         aircraftCarrier = new MilitaryShip("aircraftCarrier", 5, false);
-        battleship = new MilitaryShip("battleship", 4, false);
-        cruiser = new MilitaryShip("cruiser", 3, false);
-        destroyer = new MilitaryShip("destroyer", 2, false);
-        submarine = new MilitaryShip("submarine", 2, false);
+        battleship = new MilitaryShip("battleship", 4, true);
+        clipper = new Ship("clipper", 3);
+        dinghy = new Ship("dinghy", 1);
+        submarine = new MilitaryShip("submarine", 2, true);
         playerShips[0] = aircraftCarrier;
         playerShips[1] = battleship;
-        playerShips[2] = cruiser;
-        playerShips[3] = destroyer;
+        playerShips[2] = clipper;
+        playerShips[3] = dinghy;
         playerShips[4] = submarine;
 
         computer_aircraftCarrier = new MilitaryShip("computer_aircraftCarrier", 5, false);
-        computer_battleship = new MilitaryShip("computer_battleship", 4, false);
-        computer_cruiser = new MilitaryShip("computer_cruiser", 3, false);
-        computer_destroyer = new MilitaryShip("computer_destroyer", 2, false);
-        computer_submarine = new MilitaryShip("computer_submarine", 2, false);
+        computer_battleship = new MilitaryShip("computer_battleship", 4, true);
+        computer_clipper = new Ship("computer_clipper", 3);
+        computer_dinghy = new Ship("computer_dinghy", 1);
+        computer_submarine = new MilitaryShip("computer_submarine", 2, true);
         compShips[0] = computer_aircraftCarrier;
         compShips[1] = computer_battleship;
-        compShips[2] = computer_cruiser;
-        compShips[3] = computer_destroyer;
+        compShips[2] = computer_clipper;
+        compShips[3] = computer_dinghy;
         compShips[4] = computer_submarine;
 
         playerHits = new ArrayList<Coords>();
@@ -75,8 +75,8 @@ public class BattleshipModel {
         if(test) {
             updateShipPosition("computer", "computer_aircraftCarrier", 1, 1, "horizontal");
             updateShipPosition("computer", "computer_battleship", 2, 1, "horizontal");
-            updateShipPosition("computer", "computer_cruiser", 3, 1, "horizontal");
-            updateShipPosition("computer", "computer_destroyer", 4, 1, "horizontal");
+            updateShipPosition("computer", "computer_clipper", 3, 1, "horizontal");
+            updateShipPosition("computer", "computer_dinghy", 4, 1, "horizontal");
             updateShipPosition("computer", "computer_submarine", 5, 1, "vertical");
         }
         else {
@@ -240,13 +240,13 @@ public class BattleshipModel {
         switch (name) {
             case "aircraftCarrier": ship = aircraftCarrier; break;
             case "battleship": ship = battleship; break;
-            case "cruiser": ship = cruiser; break;
-            case "destroyer": ship = destroyer; break;
+            case "clipper": ship = clipper; break;
+            case "dinghy": ship = dinghy; break;
             case "submarine": ship = submarine; break;
             case "computer_aircraftCarrier": ship = computer_aircraftCarrier; break;
             case "computer_battleship": ship = computer_battleship; break;
-            case "computer_cruiser": ship = computer_cruiser; break;
-            case "computer_destroyer": ship = computer_destroyer; break;
+            case "computer_clipper": ship = computer_clipper; break;
+            case "computer_dinghy": ship = computer_dinghy; break;
             case "computer_submarine": ship = computer_submarine; break;
         }
         return ship;
@@ -295,10 +295,10 @@ public class BattleshipModel {
 
     public void placeAllAI(){
                 placeAIShip("computer_aircraftCarrier");
-                placeAIShip("computer_destroyer");
+                placeAIShip("computer_dinghy");
                 placeAIShip("computer_submarine");
                 placeAIShip("computer_battleship");
-                placeAIShip("computer_cruiser");
+                placeAIShip("computer_clipper");
     }
 
     /* Perform a scan and update scanResult if one of the computer's ships falls into the plus region

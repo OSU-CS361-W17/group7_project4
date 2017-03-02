@@ -15,13 +15,13 @@ class BattleshipModelTest {
 
         assertTrue(model.getShipFromName("aircraftCarrier") != null);
         assertTrue(model.getShipFromName("battleship") != null);
-        assertTrue(model.getShipFromName("cruiser") != null);
-        assertTrue(model.getShipFromName("destroyer") != null);
+        assertTrue(model.getShipFromName("clipper") != null);
+        assertTrue(model.getShipFromName("dinghy") != null);
         assertTrue(model.getShipFromName("submarine") != null);
         assertTrue(model.getShipFromName("computer_aircraftCarrier") != null);
         assertTrue(model.getShipFromName("computer_battleship") != null);
-        assertTrue(model.getShipFromName("computer_cruiser") != null);
-        assertTrue(model.getShipFromName("computer_destroyer") != null);
+        assertTrue(model.getShipFromName("computer_clipper") != null);
+        assertTrue(model.getShipFromName("computer_dinghy") != null);
         assertTrue(model.getShipFromName("computer_submarine") != null);
         }
 
@@ -62,10 +62,10 @@ class BattleshipModelTest {
         BattleshipModel theModel = new BattleshipModel();
         Ship aircraftCarrier = theModel.getShipFromName("computer_aircraftCarrier");
         assertFalse(aircraftCarrier.getStart().getAcross() == 0);
-        Ship destroyer = theModel.getShipFromName("computer_destroyer");
-        assertFalse(destroyer.getStart().getAcross() == 0);
-        Ship cruiser = theModel.getShipFromName("computer_cruiser");
-        assertFalse(cruiser.getStart().getAcross() == 0);
+        Ship dinghy = theModel.getShipFromName("computer_dinghy");
+        assertFalse(dinghy.getStart().getAcross() == 0);
+        Ship clipper = theModel.getShipFromName("computer_clipper");
+        assertFalse(clipper.getStart().getAcross() == 0);
         Ship battleship = theModel.getShipFromName("computer_battleship");
         assertFalse(battleship.getStart().getAcross() == 0);
         Ship submarine = theModel.getShipFromName("computer_submarine");
