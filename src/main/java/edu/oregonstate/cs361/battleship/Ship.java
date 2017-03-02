@@ -2,22 +2,22 @@ package edu.oregonstate.cs361.battleship;
 
 import static edu.oregonstate.cs361.battleship.BattleshipModel.GRID_SIZE;
 
-class Ship {
+public class Ship {
 
     private String name;
-    private int length;
-    private int hitCounter = 0;
-    private Coords start;
-    private Coords end;
-    private boolean isVert = false;
-    private boolean isSunk = false;
+    protected int length;
+    protected Coords start;
+    protected Coords end;
+    protected boolean isVert = false;
+    protected boolean isSunk = false;
+    protected String type;
 
-    Ship(String name, int length) {
+    public Ship(String name, int length) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
         this(name, length, new Coords(0,0), new Coords(0,0));
     }
 
-    Ship(String name, int length, Coords start, Coords end) {
+    public Ship(String name, int length, Coords start, Coords end) {
         this.name = name;
 
         if (length >= 1 && length <= GRID_SIZE)
@@ -30,19 +30,21 @@ class Ship {
 
         if(start.getDown() != end.getDown())
             isVert = true;
+
+        type = "Ship";
     }
 
-    String getName() { return name; }
+    public final String getName() { return name; }
 
-    int getLength() { return length; }
+    public final int getLength() { return length; }
 
-    Coords getStart() { return start; }
+    protected final Coords getStart() { return start; }
 
-    Coords getEnd() { return end; }
+    protected final Coords getEnd() { return end; }
 
-    boolean checkVert() { return isVert; }
+    public final boolean checkVert() { return isVert; }
 
-    void setVert(String orientation) {
+    protected final void setVert(String orientation) {
         if (orientation.equals("vertical"))
             isVert = true;
         else if (orientation.equals("horizontal"))
@@ -53,7 +55,7 @@ class Ship {
      * @param coordinates The specified location to check for overlap
      * @return true if there is overlap, false otherwise
      */
-    public boolean checkCollision(Coords coordinates) {
+    public final boolean checkCollision(Coords coordinates) {
         boolean collision = false;
         Coords start = getStart();
 
@@ -76,8 +78,8 @@ class Ship {
 
         return collision;
     }
-    
-    public boolean updatePosition(int row, int column, String orientation) {
+
+    public final boolean updatePosition(int row, int column, String orientation) {
         // Specified start position cannot be off-grid
         if (row <= 0 || row > GRID_SIZE || column <= 0 || column > GRID_SIZE)
             return false;
@@ -127,7 +129,7 @@ class Ship {
     /* Return's a Boolean describing whether the ship has been sunk or not
      * @return true if ship is sunk, false otherwise
      */
-    public boolean checkSunk() { return isSunk; }
+    public final boolean checkSunk() { return isSunk; }
 
     /* Increments the number of hits on the ship, and checks it against the number of possible hits
      * Sets isSunk to true if the ship has taken the maximum number of hits
@@ -137,10 +139,7 @@ class Ship {
         if(isSunk)
             return isSunk;
 
-        hitCounter++;
-        if(hitCounter == length)
-            isSunk = true;
-
+        isSunk = true;
         return isSunk;
     }
 }

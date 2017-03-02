@@ -42,22 +42,22 @@ public class BattleshipModel {
     }
 
     public BattleshipModel(boolean test) {
-        aircraftCarrier = new Ship("aircraftCarrier", 5);
-        battleship = new Ship("battleship", 4);
-        cruiser = new Ship("cruiser", 3);
-        destroyer = new Ship("destroyer", 2);
-        submarine = new Ship("submarine", 2);
+        aircraftCarrier = new MilitaryShip("aircraftCarrier", 5, false);
+        battleship = new MilitaryShip("battleship", 4, false);
+        cruiser = new MilitaryShip("cruiser", 3, false);
+        destroyer = new MilitaryShip("destroyer", 2, false);
+        submarine = new MilitaryShip("submarine", 2, false);
         playerShips[0] = aircraftCarrier;
         playerShips[1] = battleship;
         playerShips[2] = cruiser;
         playerShips[3] = destroyer;
         playerShips[4] = submarine;
 
-        computer_aircraftCarrier = new Ship("computer_aircraftCarrier", 5);
-        computer_battleship = new Ship("computer_battleship", 4);
-        computer_cruiser = new Ship("computer_cruiser", 3);
-        computer_destroyer = new Ship("computer_destroyer", 2);
-        computer_submarine = new Ship("computer_submarine", 2);
+        computer_aircraftCarrier = new MilitaryShip("computer_aircraftCarrier", 5, false);
+        computer_battleship = new MilitaryShip("computer_battleship", 4, false);
+        computer_cruiser = new MilitaryShip("computer_cruiser", 3, false);
+        computer_destroyer = new MilitaryShip("computer_destroyer", 2, false);
+        computer_submarine = new MilitaryShip("computer_submarine", 2, false);
         compShips[0] = computer_aircraftCarrier;
         compShips[1] = computer_battleship;
         compShips[2] = computer_cruiser;
@@ -162,10 +162,10 @@ public class BattleshipModel {
     public boolean updateShot(String targetSide, Coords targetArea){
         boolean collision = false;
 
-        Ship tempShip = checkShipCollisions(targetSide, targetArea);
-
         if (targetArea == null)
             return false;
+
+        Ship tempShip = checkShipCollisions(targetSide, targetArea);
 
         if (targetSide == "computer") {
             if (tempShip != null) {

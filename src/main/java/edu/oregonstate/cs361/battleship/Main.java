@@ -1,6 +1,9 @@
 package edu.oregonstate.cs361.battleship;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import io.gsonfire.GsonFireBuilder;
+import io.gsonfire.TypeSelector;
 import spark.Request;
 import spark.Spark;
 
@@ -36,16 +39,37 @@ public class Main {
         return getJSONFromModel(model);
     }
 
+    // This returns a gson object capable of properly handling polymorphism between Ship and CivilianShip
+    private static Gson getGson() {
+        GsonFireBuilder builder = new GsonFireBuilder().registerTypeSelector(Ship.class, new TypeSelector<Ship>() {
+            @Override
+            public Class<? extends Ship> getClassForElement(JsonElement readElement) {
+                String type = readElement.getAsJsonObject().get("type").getAsString();
+
+                if (type.equals("Ship")) {
+                    return Ship.class;
+                }
+                else if (type.equals("MilitaryShip")) {
+                    return MilitaryShip.class;
+                } else {
+                    throw new RuntimeException("Ship (or subclass of Ship) type string does not match Gson type selector.");
+                }
+            }
+        });
+
+        return builder.createGson();
+    }
+
     //Convert a BattleshipModel to a JSON string
     private static String getJSONFromModel(BattleshipModel model) {
-        Gson gson = new Gson();
+        Gson gson = getGson();
         String json = gson.toJson(model);
         return json;
     }
 
     //This function should accept an HTTP request and deserialize it into an actual Java object.
     private static BattleshipModel getModelFromReq(Request req){
-        Gson gson = new Gson();
+        Gson gson = getGson();
         String json = req.body();
         BattleshipModel model = gson.fromJson(json, BattleshipModel.class);
         return model;
