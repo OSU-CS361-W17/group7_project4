@@ -21,18 +21,8 @@ public class MilitaryShip extends Ship {
     public boolean scan(Coords coord) {
         if(this.isStealth)
             return false;
-        if (this.checkCollision(coord))
-            return true;
-        if (this.checkCollision(new Coords(coord.getAcross()-1, coord.getDown())))
-            return true;
-        if (this.checkCollision(new Coords(coord.getAcross()+1, coord.getDown())))
-            return true;
-        if (this.checkCollision(new Coords(coord.getAcross(), coord.getDown()-1)))
-            return true;
-        if (this.checkCollision(new Coords(coord.getAcross(), coord.getDown()+1)))
-            return true;
 
-        return false;
+        return super.scan(coord);
     }
 
     @Override
