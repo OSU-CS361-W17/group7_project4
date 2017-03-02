@@ -119,4 +119,20 @@ class ShipTest {
         assertEquals(true,s.scan(new Coords(5,3)));
     }
 
+    @Test
+    public void hitSinkTest() {
+        Ship ship = new Ship("Test Ship",3);
+        ship.updatePosition(5, 5, "vertical");
+
+        assertEquals(false, ship.checkSunk());
+
+        //Hit and sink
+        assertEquals(true, ship.addHit());
+
+        //Already sunk
+        assertEquals(true, ship.addHit());
+
+        assertEquals(true, ship.checkSunk());
+    }
+
 }
