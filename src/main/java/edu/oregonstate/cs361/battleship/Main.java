@@ -49,10 +49,9 @@ public class Main {
                 if (type.equals("Ship")) {
                     return Ship.class;
                 }
-                /* TODO: Below is an example of how you add a type for a Ship subclass. Remember to do this.
-                else if (type.equals("CivilianShip")) {
-                    return CivilianShip.class;
-                }*/ else {
+                else if (type.equals("MilitaryShip")) {
+                    return MilitaryShip.class;
+                } else {
                     throw new RuntimeException("Ship (or subclass of Ship) type string does not match Gson type selector.");
                 }
             }
