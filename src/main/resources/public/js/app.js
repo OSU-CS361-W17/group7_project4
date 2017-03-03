@@ -4,10 +4,10 @@ var alerted = false;
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
-
+    /*
      var audio = new Audio('audio/Music.mp3');
         audio.play();
-
+    */
 
     $.getJSON("model", function (json) {
         displayGameState(json);
@@ -209,6 +209,12 @@ for (var i = 0; i < gameModel.playerMisses.length; i++) {
 for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
+for (var i = 0; i < gameModel.playerCiviHits.length; i++) {
+    $( '#MyBoard #' + gameModel.playerCiviHits[i].Down + '_' + gameModel.playerCiviHits[i].Across ).css("background-color", "purple");
+ }
+for (var i = 0; i < gameModel.playerCiviHits.length; i++) {
+    $( '#TheirBoard #' + gameModel.compCiviHits[i].Down + '_' + gameModel.compCiviHits[i].Across ).css("background-color", "purple");
+ }
 }
 
 // Gets an individual tile's intended color (for the computer's board only)

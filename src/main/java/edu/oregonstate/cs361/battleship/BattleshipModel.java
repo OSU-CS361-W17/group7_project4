@@ -29,6 +29,8 @@ public class BattleshipModel {
     private ArrayList<Coords> playerMisses;
     private ArrayList<Coords> computerHits;
     private ArrayList<Coords> computerMisses;
+    private ArrayList<Coords> playerCiviHits;
+    private ArrayList<Coords> compCiviHits;
 
     // Tracks AI's remaining fireable Coords
     private ArrayList<Coords> computerRemainingFirableCoords;
@@ -68,6 +70,8 @@ public class BattleshipModel {
         playerMisses = new ArrayList<Coords>();
         computerHits = new ArrayList<Coords>();
         computerMisses = new ArrayList<Coords>();
+        playerCiviHits = new ArrayList<Coords>();
+        compCiviHits = new ArrayList<Coords>();
       
         //Calls for clean new AI fireable array.
         setCleanComputerShotArray();
@@ -121,6 +125,14 @@ public class BattleshipModel {
     public ArrayList<Coords> getComputerMisses() {
         return computerMisses;
     }
+
+    public ArrayList<Coords> getPlayerCiviHits() {
+        return playerCiviHits;
+    }
+
+    public ArrayList<Coords> getCompCiviHits() {
+        return compCiviHits;
+    }
     
     /*
      * Check if any of a target player or computer's ships overlap with given coordinates
@@ -165,11 +177,16 @@ public class BattleshipModel {
         if (targetArea == null)
             return false;
 
+        //find ship at fire location
         Ship tempShip = checkShipCollisions(targetSide, targetArea);
 
+        //if firing at computer
         if (targetSide == "computer") {
+            //and input is valid
             if (tempShip != null) {
                 computerHits.add(targetArea);
+                if(tempShip.type == "ship")
+                    compCiviHits.add(targetArea);
                 if(tempShip.addHit())
                     checkGameOver("computer");
                 collision = true;
@@ -180,6 +197,8 @@ public class BattleshipModel {
         else if (targetSide == "player")  {
             if(tempShip != null) {
                 playerHits.add(targetArea);
+                if(tempShip.type == "ship")
+                    playerCiviHits.add(targetArea);
                 if(tempShip.addHit())
                     checkGameOver("player");
                 collision = true;
