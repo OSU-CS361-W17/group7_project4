@@ -212,7 +212,7 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
 for (var i = 0; i < gameModel.playerCiviHits.length; i++) {
     $( '#MyBoard #' + gameModel.playerCiviHits[i].Down + '_' + gameModel.playerCiviHits[i].Across ).css("background-color", "purple");
  }
-for (var i = 0; i < gameModel.playerCiviHits.length; i++) {
+for (var i = 0; i < gameModel.compCiviHits.length; i++) {
     $( '#TheirBoard #' + gameModel.compCiviHits[i].Down + '_' + gameModel.compCiviHits[i].Across ).css("background-color", "purple");
  }
 }

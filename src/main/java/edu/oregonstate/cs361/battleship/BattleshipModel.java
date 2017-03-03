@@ -185,7 +185,7 @@ public class BattleshipModel {
             //and input is valid
             if (tempShip != null) {
                 computerHits.add(targetArea);
-                if(tempShip.type == "ship")
+                if(tempShip.type.equals("Ship"));
                     compCiviHits.add(targetArea);
                 if(tempShip.addHit())
                     checkGameOver("computer");
@@ -197,7 +197,7 @@ public class BattleshipModel {
         else if (targetSide == "player")  {
             if(tempShip != null) {
                 playerHits.add(targetArea);
-                if(tempShip.type == "ship")
+                if(tempShip.type.equals("Ship"));
                     playerCiviHits.add(targetArea);
                 if(tempShip.addHit())
                     checkGameOver("player");
