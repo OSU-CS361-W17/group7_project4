@@ -30,6 +30,7 @@ public class BattleshipModel {
     private ArrayList<Coords> computerHits;
     private ArrayList<Coords> computerMisses;
 
+
     // Tracks AI's remaining fireable Coords
     private ArrayList<Coords> computerRemainingFirableCoords;
 
@@ -121,6 +122,7 @@ public class BattleshipModel {
     public ArrayList<Coords> getComputerMisses() {
         return computerMisses;
     }
+
     
     /*
      * Check if any of a target player or computer's ships overlap with given coordinates
@@ -133,14 +135,14 @@ public class BattleshipModel {
 
         if (target == "player") {
             for (Ship ship : playerShips) {
-                if(ship.checkCollision(coordinates)) {
+                if (ship.checkCollision(coordinates)) {
                     shipFound = ship;
                     break;
                 }
             }
         } else if (target == "computer") {
             for (Ship ship : compShips) {
-                if(ship.checkCollision(coordinates)) {
+                if (ship.checkCollision(coordinates)) {
                     shipFound = ship;
                     break;
                 }
@@ -165,9 +167,12 @@ public class BattleshipModel {
         if (targetArea == null)
             return false;
 
+        //find ship at fire location
         Ship tempShip = checkShipCollisions(targetSide, targetArea);
 
+        //if firing at computer
         if (targetSide == "computer") {
+            //and input is valid
             if (tempShip != null) {
                 computerHits.add(targetArea);
                 if(tempShip.addHit())
