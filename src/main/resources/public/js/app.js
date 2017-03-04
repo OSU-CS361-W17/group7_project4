@@ -185,7 +185,6 @@ function scanBlinkAnimation(row, column, color, repeat) {
 function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "DarkBlue");
 $( '#TheirBoard td'  ).css("background-color", "DarkBlue");
-var audio = new Audio('audio/0477.mp3');
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
@@ -216,15 +215,8 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
                 $( '#TheirBoard #' + ship.start.Down + '_' + (ship.start.Across + i) ).css("background-color", "purple");
             }
          }
-         audio.play();
      }
  }
-
-
-
-
-
-
 }
 
 // Gets an individual tile's intended color (for the computer's board only)
