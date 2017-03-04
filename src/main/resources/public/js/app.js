@@ -9,6 +9,13 @@ $( document ).ready(function() {
         gameModel = json;
     });
 
+    $('#MyBoard').on("click", "td", function (event) {
+        var coords = this.id.split("_");
+        $('#rowSelec').val(coords[0]);
+        $('#colSelec').val(coords[1]);
+    });
+
+
     $('#TheirBoard').on("click", "td", function (event) {
         var coords = this.id.split("_");
         fire(coords[0], coords[1]);
@@ -217,6 +224,20 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
          }
      }
  }
+
+    for (let ship of gameModel.playerShips) {
+        if (ship.type === "Ship" && ship.isSunk) {
+            for(i = 0; i < ship.length; i++){
+                if(ship.isVert == true){
+
+                    $( '#MyBoard #' + (ship.start.Down + i) + '_' + ship.start.Across ).css("background-color", "purple");
+                }
+                else{
+                    $( '#MyBoard #' + ship.start.Down + '_' + (ship.start.Across + i) ).css("background-color", "purple");
+                }
+            }
+        }
+    }
 }
 
 // Gets an individual tile's intended color (for the computer's board only)
