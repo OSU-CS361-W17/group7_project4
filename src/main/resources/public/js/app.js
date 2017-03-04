@@ -4,11 +4,6 @@ var alerted = false;
 //This function will be called once the page is loaded.  It will get a new game model from the back end, and display it.
 $( document ).ready(function() {
 
-    /*
-     var audio = new Audio('audio/Music.mp3');
-        audio.play();
-    */
-
     $.getJSON("model", function (json) {
         displayGameState(json);
         gameModel = json;
@@ -190,6 +185,7 @@ function scanBlinkAnimation(row, column, color, repeat) {
 function displayGameState(gameModel){
 $( '#MyBoard td'  ).css("background-color", "DarkBlue");
 $( '#TheirBoard td'  ).css("background-color", "DarkBlue");
+var audio = new Audio('audio/0477.mp3');
 
 displayShip(gameModel.aircraftCarrier);
 displayShip(gameModel.battleship);
@@ -209,12 +205,26 @@ for (var i = 0; i < gameModel.playerMisses.length; i++) {
 for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
-for (var i = 0; i < gameModel.playerCiviHits.length; i++) {
-    $( '#MyBoard #' + gameModel.playerCiviHits[i].Down + '_' + gameModel.playerCiviHits[i].Across ).css("background-color", "purple");
+ for (let ship of gameModel.compShips) {
+     if (ship.type === "Ship" && ship.isSunk) {
+         for(i = 0; i < ship.length; i++){
+            if(ship.isVert == true){
+
+                $( '#TheirBoard #' + (ship.start.Down + i) + '_' + ship.start.Across ).css("background-color", "purple");
+            }
+            else{
+                $( '#TheirBoard #' + ship.start.Down + '_' + (ship.start.Across + i) ).css("background-color", "purple");
+            }
+         }
+         audio.play();
+     }
  }
-for (var i = 0; i < gameModel.compCiviHits.length; i++) {
-    $( '#TheirBoard #' + gameModel.compCiviHits[i].Down + '_' + gameModel.compCiviHits[i].Across ).css("background-color", "purple");
- }
+
+
+
+
+
+
 }
 
 // Gets an individual tile's intended color (for the computer's board only)
