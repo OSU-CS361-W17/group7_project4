@@ -7,6 +7,8 @@ import io.gsonfire.TypeSelector;
 import spark.Request;
 import spark.Spark;
 
+import java.util.concurrent.TimeUnit;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
@@ -106,7 +108,9 @@ public class Main {
             theModel = new BattleshipModel();
 
         //This method is designated to be shooting AT the computer ships. ("comp" is the target)
-        theModel.updateShot("computer", targetCoords);
+        //If it's a hit, return before AI fires and give the player another turn
+        if(theModel.updateShot("computer", targetCoords))
+            return getJSONFromModel(theModel);
 
         /*
          * Put the AI decision making methods here for WHERE the AI will shoot
@@ -115,7 +119,9 @@ public class Main {
          targetCoords = theModel.getComputerFireCoords();
 
         //This method is designated to be shooting AT the player ships. ("player" is the target)
-        theModel.updateShot("player", targetCoords);
+        //If it's a hit, get new coordinates and fire again
+        while(theModel.updateShot("player", targetCoords))
+            targetCoords = theModel.getComputerFireCoords();
 
         return getJSONFromModel(theModel);
     }
