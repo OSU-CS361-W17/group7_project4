@@ -7,7 +7,7 @@ public class MilitaryShip extends Ship {
 
     public MilitaryShip(String name, int length, boolean stealth) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
-        this(name, length, new Coords(0,0), new Coords(0,0), stealth);
+        this(name, length, new Coords(0, 0), new Coords(0, 0), stealth);
     }
 
     public MilitaryShip(String name, int length, Coords start, Coords end, boolean stealth) {
@@ -27,13 +27,11 @@ public class MilitaryShip extends Ship {
 
     @Override
     public boolean addHit(){
-        if(this.isSunk)
-            return isSunk;
-
-        this.hitCounter++;
-        if(this.hitCounter == this.length)
-            this.isSunk = true;
-
-        return this.isSunk;
+        if(!checkSunk()) {
+            hitCounter++;
+            if(hitCounter >= getLength())
+                setSunk(true);
+        }
+        return checkSunk();
     }
 }

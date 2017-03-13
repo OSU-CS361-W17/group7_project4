@@ -5,16 +5,16 @@ import static edu.oregonstate.cs361.battleship.BattleshipModel.GRID_SIZE;
 public class Ship {
 
     private String name;
-    protected int length;
-    protected Coords start;
-    protected Coords end;
-    protected boolean isVert = false;
-    protected boolean isSunk = false;
+    private int length;
+    private Coords start;
+    private Coords end;
+    private boolean isVert = false;
+    private boolean isSunk = false;
     protected String type;
 
     public Ship(String name, int length) {
         // If no coordinates specified, default to (0,0) (which is off-grid)
-        this(name, length, new Coords(0,0), new Coords(0,0));
+        this(name, length, new Coords(0, 0), new Coords(0, 0));
     }
 
     public Ship(String name, int length, Coords start, Coords end) {
@@ -33,6 +33,22 @@ public class Ship {
 
         type = "Ship";
     }
+
+    /* Creates an array of Coords containing all of the tiles the Ship overlaps with
+     * @return Array of Coords the Ship overlaps with
+     */
+    Coords[] getCoordsArray() {
+        Coords[] coords = new Coords[length];
+
+        for (int i = 0; i < length; i++) {
+            if (isVert)
+                coords[i] = start.getBelow(i);
+            else
+                coords[i] = start.getRight(i);
+        }
+        return coords;
+    }
+
 
     public final String getName() { return name; }
 
@@ -55,28 +71,15 @@ public class Ship {
      * @param coordinates The specified location to check for overlap
      * @return true if there is overlap, false otherwise
      */
-    public final boolean checkCollision(Coords coordinates) {
-        boolean collision = false;
-        Coords start = getStart();
+    public final boolean checkCollision(Coords target) {
+        Coords[] shipCoords = getCoordsArray();
 
-        if(checkVert()){
-            for (int j = 0; j < getLength(); j++) {
-                if(coordinates.getDown() == start.getDown()+j && coordinates.getAcross() == start.getAcross()) {
-                    collision = true;
-                    break;
-                }
-            }
-        }
-        else {
-            for (int j = 0; j < getLength(); j++) {
-                if (coordinates.getAcross() == start.getAcross() + j  && coordinates.getDown() == start.getDown()) {
-                    collision = true;
-                    break;
-                }
-            }
+        for (Coords coords : shipCoords) {
+            if (coords.equals(target))
+                return true;
         }
 
-        return collision;
+        return false;
     }
 
     public final boolean updatePosition(int row, int column, String orientation) {
@@ -114,13 +117,13 @@ public class Ship {
     public boolean scan(Coords coord) {
         if (checkCollision(coord))
             return true;
-        if (checkCollision(new Coords(coord.getAcross()-1, coord.getDown())))
+        if (checkCollision(new Coords(coord.getDown(), coord.getAcross()-1)))
             return true;
-        if (checkCollision(new Coords(coord.getAcross()+1, coord.getDown())))
+        if (checkCollision(new Coords(coord.getDown(), coord.getAcross()+1)))
             return true;
-        if (checkCollision(new Coords(coord.getAcross(), coord.getDown()-1)))
+        if (checkCollision(new Coords(coord.getDown()-1, coord.getAcross())))
             return true;
-        if (checkCollision(new Coords(coord.getAcross(), coord.getDown()+1)))
+        if (checkCollision(new Coords(coord.getDown()+1, coord.getAcross())))
             return true;
 
         return false;
@@ -130,6 +133,8 @@ public class Ship {
      * @return true if ship is sunk, false otherwise
      */
     public final boolean checkSunk() { return isSunk; }
+
+    final void setSunk(boolean sunk) { isSunk = sunk; }
 
     /* Increments the number of hits on the ship, and checks it against the number of possible hits
      * Sets isSunk to true if the ship has taken the maximum number of hits
@@ -142,6 +147,4 @@ public class Ship {
         isSunk = true;
         return isSunk;
     }
-
-
 }
