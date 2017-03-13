@@ -115,13 +115,12 @@ public class Main {
         /*
          * Put the AI decision making methods here for WHERE the AI will shoot
          * then take the Coords that the AI decides and set "targetCoords" equal to it.
+         * Proceed to fire at the "targetCoords," repeating the target generation and
+         * firing it the hit lands.
          */
-         targetCoords = theModel.getComputerFireCoords();
-
-        //This method is designated to be shooting AT the player ships. ("player" is the target)
-        //If it's a hit, get new coordinates and fire again
-        while(theModel.updateShot("player", targetCoords))
-            targetCoords = theModel.getComputerFireCoords();
+         do {
+             targetCoords = theModel.getComputerFireCoords();
+         } while (theModel.updateShot("player", targetCoords));
 
         return getJSONFromModel(theModel);
     }
