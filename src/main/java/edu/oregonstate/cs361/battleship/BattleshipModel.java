@@ -288,7 +288,7 @@ public class BattleshipModel {
 
                 // There are no adjacent hits to extend on, so just pick an adjacent blank Coord
                 for (Coords coords : targetHit.getAdjacents()) {
-                    if (!playerHits.contains(coords) && !playerMisses.contains(coords))
+                    if (!playerHits.contains(coords) && !playerMisses.contains(coords) && coords.onGrid())
                         return coords;
                 }
             }
