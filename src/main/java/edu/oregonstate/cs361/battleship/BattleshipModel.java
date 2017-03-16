@@ -41,7 +41,7 @@ public class BattleshipModel {
 
 
     public BattleshipModel() {
-        this(false); // Default to hard mode
+        this(true); // Default to hard mode
     }
 
     public BattleshipModel(boolean easyMode) {
@@ -295,17 +295,18 @@ public class BattleshipModel {
             }
         } else // Easy mode
         {
-            //TODO implement easy mode firing method
+
+            // Fire randomly where the computer hasn't yet
             if (computerRemainingFirableCoords.size() != 0) {
-                Random randNum = new Random();
-                int shotArrayNum = randNum.nextInt(computerRemainingFirableCoords.size());
-                Coords shot = computerRemainingFirableCoords.get(shotArrayNum);
-                computerRemainingFirableCoords.remove(shotArrayNum);
+
+                Coords shot = computerRemainingFirableCoords.get(0);
+                computerRemainingFirableCoords.remove(0);
                 return shot;
             } else {
                 gameOver = true; // End the game, there's nowhere left to shoot
                 return null;
             }
+
         }
         return null;
     }
