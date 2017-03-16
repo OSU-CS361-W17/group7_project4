@@ -41,7 +41,7 @@ public class BattleshipModel {
 
 
     public BattleshipModel() {
-        this(true); // Default to hard mode
+        this(false); // Default to hard mode
     }
 
     public BattleshipModel(boolean easyMode) {
@@ -298,7 +298,7 @@ public class BattleshipModel {
 
             // Fire randomly where the computer hasn't yet
             if (computerRemainingFirableCoords.size() != 0) {
-                tracker = tracker +0;
+
                 Coords shot = computerRemainingFirableCoords.get(tracker);
                 computerRemainingFirableCoords.remove(tracker);
                 return shot;
