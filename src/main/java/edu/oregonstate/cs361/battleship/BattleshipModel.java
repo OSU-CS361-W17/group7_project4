@@ -32,7 +32,7 @@ public class BattleshipModel {
 
     private ArrayList<Coords> computerRemainingFirableCoords; // Tracks coordinates where the AI hasn't shot yet
     private Coords targetHit; // location where the AI initially hits a ship that it will try to sink in hard mode
-    private int tracker = 0;
+
 
     private boolean scanResult = false; // True when the most recent scan detected a ship
     private boolean gameOver = false;   // True when all of the player or computer's ships are sunk
@@ -41,7 +41,7 @@ public class BattleshipModel {
 
 
     public BattleshipModel() {
-        this(false); // Default to hard mode
+        this(true); // Default to hard mode
     }
 
     public BattleshipModel(boolean easyMode) {
@@ -299,8 +299,8 @@ public class BattleshipModel {
             // Fire randomly where the computer hasn't yet
             if (computerRemainingFirableCoords.size() != 0) {
 
-                Coords shot = computerRemainingFirableCoords.get(tracker);
-                computerRemainingFirableCoords.remove(tracker);
+                Coords shot = computerRemainingFirableCoords.get(0);
+                computerRemainingFirableCoords.remove(0);
                 return shot;
             } else {
                 gameOver = true; // End the game, there's nowhere left to shoot
