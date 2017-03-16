@@ -94,7 +94,7 @@ class ShipTest {
 
     @Test
     public void testVert() {
-        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(1,4));
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1, 1), new Coords(4, 1));
 
         //Vertical Ship should return true
         assertTrue(ship.checkVert());
@@ -102,7 +102,7 @@ class ShipTest {
 
     @Test
     public void testNotVert() {
-        Ship ship = new Ship("Vertical Ship", 3, new Coords(1,1), new Coords(4,1));
+        Ship ship = new Ship("Vertical Ship", 3, new Coords(1, 1), new Coords(1, 4));
 
         //Horizontal Ship should return false
         assertFalse(ship.checkVert());
@@ -110,13 +110,13 @@ class ShipTest {
 
     @Test
     public void scanTest() {
-        Ship s = new Ship("AircraftCarrier",5, new Coords(5,2),new Coords(5,7));
-        assertEquals(false,s.scan(new Coords(1,1)));
-        assertEquals(true,s.scan(new Coords(4,2)));
-        assertEquals(true,s.scan(new Coords(5,2)));
-        assertEquals(true,s.scan(new Coords(6,2)));
-        assertEquals(true,s.scan(new Coords(5,1)));
-        assertEquals(true,s.scan(new Coords(5,3)));
+        Ship s = new Ship("AircraftCarrier",5, new Coords(2, 5),new Coords(7, 5));
+        assertEquals(false,s.scan(new Coords(1, 1)));
+        assertEquals(true,s.scan(new Coords(2, 4)));
+        assertEquals(true,s.scan(new Coords(2, 5)));
+        assertEquals(true,s.scan(new Coords(2, 6)));
+        assertEquals(true,s.scan(new Coords(1, 5)));
+        assertEquals(true,s.scan(new Coords(3, 5)));
     }
 
     @Test

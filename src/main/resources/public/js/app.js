@@ -72,9 +72,10 @@ function fire(row, column) {
         gameModel = currModel;
 
         setTimeout( function(){
-            for (var i = 0; i < gameModel.compShips.length; i++){
-                if (gameModel.compShips[i].isSunk == true) {
-                    document.getElementById(gameModel.compShips[i].name).setAttribute("class", "hidden");
+            let compShips = getComputerShips(gameModel);
+            for (var i = 0; i < compShips.length; i++){
+                if (compShips[i].isSunk == true) {
+                    document.getElementById(compShips[i].name).setAttribute("class", "hidden");
                 }
             }
 
@@ -211,7 +212,7 @@ for (var i = 0; i < gameModel.playerMisses.length; i++) {
 for (var i = 0; i < gameModel.playerHits.length; i++) {
    $( '#MyBoard #' + gameModel.playerHits[i].Down + '_' + gameModel.playerHits[i].Across ).css("background-color", "red");
 }
- for (let ship of gameModel.compShips) {
+ for (let ship of getComputerShips(gameModel)) {
      if (ship.type === "Ship" && ship.isSunk) {
          for(i = 0; i < ship.length; i++){
             if(ship.isVert == true){
@@ -225,7 +226,7 @@ for (var i = 0; i < gameModel.playerHits.length; i++) {
      }
  }
 
-    for (let ship of gameModel.playerShips) {
+    for (let ship of getPlayerShips(gameModel)) {
         if (ship.type === "Ship" && ship.isSunk) {
             for(i = 0; i < ship.length; i++){
                 if(ship.isVert == true){
@@ -272,4 +273,22 @@ function displayShip(ship){
         }
     }
  }
+}
+
+function getPlayerShips(gameModel) {
+    var playerShips = [ gameModel.aircraftCarrier,
+                        gameModel.battleship,
+                        gameModel.clipper,
+                        gameModel.dinghy,
+                        gameModel.submarine ];
+    return playerShips;
+}
+
+function getComputerShips(gameModel) {
+    var compShips = [ gameModel.computer_aircraftCarrier,
+                      gameModel.computer_battleship,
+                      gameModel.computer_clipper,
+                      gameModel.computer_dinghy,
+                      gameModel.computer_submarine ];
+    return compShips;
 }
