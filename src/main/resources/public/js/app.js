@@ -27,17 +27,15 @@ $( document ).ready(function() {
     });
 });
 
-function myFunction() {
-    if(confirm("Confirm: Start a new game with selected difficulty?")) {
+function newGameButton() {
+    if(confirm("-----------------\nStart a new game with selected difficulty?\n-----------------")) {
 
         var difficulty = document.getElementById("difficultySwitch").checked;
 
         if (difficulty){
-            alert("Hard mode.");
-            difficulty = false;
+            difficulty = false;// Have to flip this to get logic right on BattleshipModel.java side
         } else {
-            alert("Easy mode.");
-            difficulty = true;
+            difficulty = true;//Same as above. Had to flip this to match the logic of BattleshipModel
         }
 
          var request = $.ajax({
@@ -121,7 +119,7 @@ function fire(row, column) {
 
             if (gameModel.gameOver){
                 if(!alerted){
-                     alert("Game Over.\nSelect difficulty and press \"New Game?\" to play again.");
+                     alert("-----------------\nGame Over.\nSelect desired difficulty and press \"New Game?\" to play again.\n-----------------");
                      alerted = true;
                      }
                 }
