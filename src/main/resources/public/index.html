@@ -12,14 +12,12 @@
 <div id="gameWindow" class="pageContainer">
     <section id="head" class="header titleContainer">
         <div id="headTitle">
-            <img src="images/flag.gif" class ="flag">
             <img src="images/battleshipTitle.png" alt="bTitle" class="titleImage">
             <p style="font-size: 3vw;font-weight:bold;margin: 3px;text-align: center" class="titleImgText">BATTLESHIP</p>
 
         </div>
     </section>
     <section id="todoapp" ic-target="this">
-        <img src="images/ship.png" class="fly">
         <!--#parse("/velocity/todoList.vm")-->
         <div id="sideBySideBoard" class="gameContainer">
             <div id="playerInfo" class="column infoPanel">
@@ -374,8 +372,23 @@
                     <p id="computer_clipper">Clipper</p>
                     <p id="computer_dinghy">Dinghy</p>
                     <p id="computer_submarine">Submarine</p>
-                    <br>
                 </div>
+
+                ---------<BR><BR>
+                AI Difficulty:<BR><BR>
+
+                <label class="switch">
+                    <input type="checkbox" id="difficultySwitch" checked>
+                    <div class="slider"></div>
+                    <div class="text"></div>
+                </label>
+
+                <BR><BR>
+
+                <button onclick="newGameButton()">New Game?</button>
+
+
+
             </div>
         </div>
     </section>
