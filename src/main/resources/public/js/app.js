@@ -27,6 +27,46 @@ $( document ).ready(function() {
     });
 });
 
+function myFunction() {
+    if(confirm("Confirm: Start a new game with selected difficulty?")) {
+
+        var difficulty = document.getElementById("difficultySwitch").checked;
+
+        if (difficulty){
+            alert("Hard mode.");
+            difficulty = false;
+        } else {
+            alert("Easy mode.");
+            difficulty = true;
+        }
+
+         var request = $.ajax({
+         url: "/model/"+difficulty,
+         method: "post",
+         data: JSON.stringify(gameModel),
+         contentType: "application/json; charset=utf-8",
+         dataType: "json"
+         });
+
+
+         request.done(function( currModel ) {
+         displayGameState(currModel);
+         gameModel = currModel;
+
+         let compShips = getComputerShips(gameModel);
+         for (var i = 0; i < compShips.length; i++){
+             if (compShips[i].isSunk == false) {
+                 document.getElementById(compShips[i].name).setAttribute("class", "visible");
+             }
+         }
+         });
+
+         request.fail(function( jqXHR, textStatus ) {
+         alert( "Request failed: " + textStatus );
+         });
+    }
+};
+
 function placeShip() {
    // This ajax call will asynchronously call the back end, and tell it where to place the ship, then get back a game model with the ship placed, and display the new model.
    var request = $.ajax({
@@ -81,7 +121,7 @@ function fire(row, column) {
 
             if (gameModel.gameOver){
                 if(!alerted){
-                     alert("Game Over.\nRefresh to play again.");
+                     alert("Game Over.\nSelect difficulty and press \"New Game?\" to play again.");
                      alerted = true;
                      }
                 }

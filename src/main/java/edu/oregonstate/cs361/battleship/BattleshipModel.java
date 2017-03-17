@@ -41,7 +41,7 @@ public class BattleshipModel {
 
 
     public BattleshipModel() {
-        this(true); // Default to hard mode
+        this(false); // Default to hard mode
     }
 
     public BattleshipModel(boolean easyMode) {

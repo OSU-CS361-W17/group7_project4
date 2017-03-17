@@ -22,6 +22,10 @@ public class Main {
 
         //This will listen to GET requests to /model and return a clean new model
         get("/model", (req, res) -> newModel());
+
+        //POST request for changing game difficulty and starting a new game
+        post("/model/:difficulty", (req,res) -> newModelWithDifficulty(req));
+
         //This will listen to POST requests and expects to receive a game model, as well as location to fire to
         post("/fire/:row/:col", (req, res) -> fireAt(req));
         //This will listen to POST requests and expects to receive a game model, as well as location to scan
@@ -34,6 +38,17 @@ public class Main {
     static String newModel() {
         BattleshipModel model = new BattleshipModel();
         return getJSONFromModel(model);
+    }
+
+    //This function should return a new model
+    static String newModelWithDifficulty(Request req) {
+        if(Boolean.parseBoolean(req.params("difficulty"))){
+            BattleshipModel model = new BattleshipModel(Boolean.parseBoolean(req.params("difficulty")));
+            return getJSONFromModel(model);
+        } else{
+            BattleshipModel model = new BattleshipModel(Boolean.parseBoolean(req.params("difficulty")));
+            return getJSONFromModel(model);
+        }
     }
 
     //Convert a BattleshipModel to a JSON string
