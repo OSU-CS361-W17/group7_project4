@@ -12,14 +12,12 @@
 <div id="gameWindow" class="pageContainer">
     <section id="head" class="header titleContainer">
         <div id="headTitle">
-            <img src="images/flag.gif" class ="flag">
             <img src="images/battleshipTitle.png" alt="bTitle" class="titleImage">
             <p style="font-size: 3vw;font-weight:bold;margin: 3px;text-align: center" class="titleImgText">BATTLESHIP</p>
 
         </div>
     </section>
     <section id="todoapp" ic-target="this">
-        <img src="images/ship.png" class="fly">
         <!--#parse("/velocity/todoList.vm")-->
         <div id="sideBySideBoard" class="gameContainer">
             <div id="playerInfo" class="column infoPanel">
@@ -376,6 +374,14 @@
                     <p id="computer_submarine">Submarine</p>
                     <br>
                 </div>
+
+                <label class="switch">
+                    <input type="checkbox">
+                    <div class="slider"></div>
+                    <div class="text"></div>
+                </label>
+
+
             </div>
         </div>
     </section>
